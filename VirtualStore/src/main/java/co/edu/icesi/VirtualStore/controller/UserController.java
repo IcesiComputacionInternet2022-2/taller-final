@@ -20,16 +20,16 @@ public class UserController implements UserAPI {
 
     @Override
     public UserDTO getUser(UUID userId) {
-        return userMapper.fromTatabro(userService.getUser(userId));
+        return userMapper.fromUser(userService.getUser(userId));
     }
 
     @Override
     public UserDTO createUser(@Valid UserDTO userDTO) {
-        return userMapper.fromTatabro(userService.createUser(userMapper.fromDTO(userDTO)));
+        return userMapper.fromUser(userService.createUser(userMapper.fromDTO(userDTO)));
     }
 
     @Override
     public List<UserDTO> getUsers() {
-        return userService.getUsers().stream().map(userMapper::fromTatabro).collect(Collectors.toList());
+        return userService.getUsers().stream().map(userMapper::fromUser).collect(Collectors.toList());
     }
 }

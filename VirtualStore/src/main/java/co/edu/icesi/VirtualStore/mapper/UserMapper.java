@@ -1,5 +1,6 @@
 package co.edu.icesi.VirtualStore.mapper;
 
+import co.edu.icesi.VirtualStore.dto.LoggedUserDTO;
 import co.edu.icesi.VirtualStore.dto.UserDTO;
 import co.edu.icesi.VirtualStore.model.User;
 import org.mapstruct.Mapper;
@@ -8,5 +9,7 @@ import org.mapstruct.Mapper;
 public interface UserMapper {
 
     User fromDTO(UserDTO userDTO);
-    UserDTO fromTatabro(User user);
+    UserDTO fromUser(User user);
+
+    LoggedUserDTO loggedUserFromUser(User user);
 }

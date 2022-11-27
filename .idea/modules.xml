@@ -3,6 +3,7 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/VirtualStore/VirtualStore.iml" filepath="$PROJECT_DIR$/VirtualStore/VirtualStore.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/taller-final.iml" filepath="$PROJECT_DIR$/.idea/taller-final.iml" />
     </modules>
   </component>
 </project>

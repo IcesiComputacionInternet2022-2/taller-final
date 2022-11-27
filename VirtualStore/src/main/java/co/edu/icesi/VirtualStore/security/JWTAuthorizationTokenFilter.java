@@ -58,7 +58,7 @@ public class JWTAuthorizationTokenFilter extends OncePerRequestFilter {
     protected void doFilterInternal(@NonNull HttpServletRequest request, @NonNull HttpServletResponse response, @NonNull FilterChain filterChain) throws ServletException, IOException {
         try {
             if (containsToken(request)) {
-                String jwtToken = request.getHeader(AUTHORIZATION_HEADER).replace(TOKEN_PREFIX, StringUtils.EMPTY);
+                String jwtToken = ((String) request.getSession().getAttribute(AUTHORIZATION_HEADER)).replace(TOKEN_PREFIX, StringUtils.EMPTY);
                 Claims claims = JWTParser.decodeJWT(jwtToken);
                 SecurityContext context = parseClaims(jwtToken, claims);
                 SecurityContextHolder.setUserContext(context);
@@ -68,6 +68,7 @@ public class JWTAuthorizationTokenFilter extends OncePerRequestFilter {
         } catch (JwtException e) {
             createUnauthorizedFilter(new UserException(HttpStatus.UNAUTHORIZED, new UserError(UserErrorCode.CODE_07, UserErrorCode.CODE_07.getMessage())), response);
         } finally {
+            request.removeAttribute("LoggedUser");
             SecurityContextHolder.clearContext();
         }
     }
@@ -107,7 +108,7 @@ public class JWTAuthorizationTokenFilter extends OncePerRequestFilter {
     }
 
     private boolean containsToken(HttpServletRequest request) {
-        String authenticationHeader = request.getHeader(AUTHORIZATION_HEADER);
+        String authenticationHeader = (String) request.getSession().getAttribute(AUTHORIZATION_HEADER);
         return authenticationHeader != null && authenticationHeader.startsWith(TOKEN_PREFIX);
     }
 }

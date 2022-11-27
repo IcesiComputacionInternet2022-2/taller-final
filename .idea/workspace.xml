@@ -1,40 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="6543797c-de30-46e8-aae5-4e9500e91b94" name="Changes" comment="" />
+    <list default="true" id="900528aa-5a57-429d-a66a-5a04ca4fcfdf" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/dto/LoggedUserDTO.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/VirtualStore/src/main/resources/templates/admin.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/VirtualStore/src/main/resources/templates/home.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/modules.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/controller/UserController.java" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/controller/UserController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/controller/ViewController.java" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/controller/ViewController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/mapper/UserMapper.java" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/mapper/UserMapper.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/repository/UserRepository.java" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/repository/UserRepository.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/security/JWTAuthorizationTokenFilter.java" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/security/JWTAuthorizationTokenFilter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/service/UserService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/service/impl/LoginServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/service/impl/LoginServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/service/impl/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/java/co/edu/icesi/VirtualStore/service/impl/UserServiceImpl.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/resources/application.properties" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/resources/application.properties" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/VirtualStore/src/main/resources/db/changelog/create_user.xml" beforeDir="false" afterPath="$PROJECT_DIR$/VirtualStore/src/main/resources/db/changelog/create_user.xml" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+        <option value="HTML File" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
-  <component name="ProjectId" id="2I1HJMssp47TNO2uKXXelul5g7E" />
+  <component name="JpbToolWindowState">
+    <option name="myId2FirstActivated">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="true" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="true" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="true" />
+      </map>
+    </option>
+    <option name="myId2Visible">
+      <map>
+        <entry key="com.haulmont.jpb.jpaInspector" value="false" />
+        <entry key="com.haulmont.jpb.jpaPalette" value="false" />
+        <entry key="com.haulmont.jpb.jpaStructure" value="false" />
+      </map>
+    </option>
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="MavenImportPreferences">
+    <option name="generalSettings">
+      <MavenGeneralSettings>
+        <option name="useMavenConfig" value="true" />
+      </MavenGeneralSettings>
+    </option>
+  </component>
+  <component name="ProjectId" id="2I8Cuk67Rqj9P7ayhOj7fBb13nj" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent"><![CDATA[{
   "keyToString": {
+    "DefaultHtmlFileTemplate": "HTML File",
+    "RequestMappingsPanelOrder0": "0",
+    "RequestMappingsPanelOrder1": "1",
+    "RequestMappingsPanelWidth0": "75",
+    "RequestMappingsPanelWidth1": "75",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false"
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/Carlos/OneDrive/Documentos/Ingeniería de Sistemas/7mo/Computación en Internet/Taller-3",
+    "project.structure.last.edited": "Project",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.2"
   }
 }]]></component>
+  <component name="RunManager">
+    <configuration name="VirtualStoreApplication" type="SpringBootApplicationConfigurationType" factoryName="Spring Boot">
+      <module name="VirtualStore" />
+      <option name="SPRING_BOOT_MAIN_CLASS" value="co.edu.icesi.VirtualStore.VirtualStoreApplication" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+  </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6543797c-de30-46e8-aae5-4e9500e91b94" name="Changes" comment="" />
-      <created>1669342100295</created>
+      <changelist id="900528aa-5a57-429d-a66a-5a04ca4fcfdf" name="Changes" comment="" />
+      <created>1669554047391</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1669342100295</updated>
-      <workItem from="1669342102105" duration="21000" />
+      <updated>1669554047391</updated>
+      <workItem from="1669554048671" duration="12016000" />
     </task>
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
   </component>
 </project>
