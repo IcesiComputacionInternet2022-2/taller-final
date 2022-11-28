@@ -34,6 +34,15 @@ public class User {
 
     private String phoneNumber;
 
+    public String getLoginAttribute(){
+        if(email!=null){
+            return email;
+        }
+        else{
+            return phoneNumber;
+        }
+    }
+
     @PrePersist
     public void generateId(){
         this.userId = UUID.randomUUID();

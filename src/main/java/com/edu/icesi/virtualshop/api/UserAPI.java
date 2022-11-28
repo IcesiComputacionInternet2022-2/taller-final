@@ -1,9 +1,11 @@
 package com.edu.icesi.virtualshop.api;
 
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import com.edu.icesi.virtualshop.dto.UserCreateDTO;
+import com.edu.icesi.virtualshop.dto.UserDTO;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RequestMapping("/users")
 public interface UserAPI {

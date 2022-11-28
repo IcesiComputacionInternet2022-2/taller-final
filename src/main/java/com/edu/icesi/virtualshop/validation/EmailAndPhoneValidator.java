@@ -4,14 +4,16 @@ import com.edu.icesi.virtualshop.dto.UserCreateDTO;
 
 import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
-public class EmailAndPasswordValidator implements ConstraintValidator<CustomAnnotations.EmailAndPasswordValidation, UserCreateDTO> {
+public class EmailAndPhoneValidator implements ConstraintValidator<CustomAnnotations.EmailAndPhoneValidation, UserCreateDTO> {
 
     @Override
     public boolean isValid(UserCreateDTO userCreateDTO, ConstraintValidatorContext constraintValidatorContext) {
         if (!(userCreateDTO instanceof UserCreateDTO)) {
             throw new IllegalArgumentException("This annotation only applies to UserCreateDTO objects");
         }
+        if(userCreateDTO.getPhone() == null && userCreateDTO.getEmail() == null){
+            return false;
+        }
         return true;
-
     }
 }

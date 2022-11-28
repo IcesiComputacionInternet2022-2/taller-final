@@ -1,8 +1,4 @@
 package com.edu.icesi.virtualshop.validation;
-
-import org.springframework.security.access.prepost.PostAuthorize;
-import org.springframework.security.access.prepost.PreAuthorize;
-
 import javax.validation.Constraint;
 import javax.validation.Payload;
 import java.lang.annotation.*;
@@ -10,13 +6,43 @@ import java.lang.annotation.*;
 public interface CustomAnnotations {
 
     @Documented
-    @Constraint(validatedBy = EmailAndPasswordValidator.class)
+    @Constraint(validatedBy = EmailAndPhoneValidator.class)
+    @Target({ElementType.TYPE, ElementType.METHOD, ElementType.FIELD })
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface EmailAndPhoneValidation {
+
+
+        String message() default "Email and password are null";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+
+    }
+
+    @Documented
+    @Constraint(validatedBy = EmailValidator.class)
     @Target({ ElementType.METHOD, ElementType.FIELD })
     @Retention(RetentionPolicy.RUNTIME)
-    @interface EmailAndPasswordValidation {
+    @interface EmailValidation {
 
 
         String message() default "email is invalid";
+
+        Class<?>[] groups() default {};
+
+        Class<? extends Payload>[] payload() default {};
+
+    }
+
+    @Documented
+    @Constraint(validatedBy = PhoneValidator.class)
+    @Target({ ElementType.METHOD, ElementType.FIELD })
+    @Retention(RetentionPolicy.RUNTIME)
+    @interface PhoneValidation {
+
+
+        String message() default "Phone is invalid";
 
         Class<?>[] groups() default {};
 
@@ -32,18 +58,6 @@ public interface CustomAnnotations {
 
 
         String message() default "Password is invalid";
-
-        Class<?>[] groups() default {};
-
-        Class<? extends Payload>[] payload() default {};
-
-    }
-
-    @Target(ElementType.METHOD)
-    @Retention(RetentionPolicy.RUNTIME)
-    @PreAuthorize(value = "authentication.principal.username.equals(#userId) ")
-    @interface IsUser {
-        String message() default "UserID is invalid";
 
         Class<?>[] groups() default {};
 
