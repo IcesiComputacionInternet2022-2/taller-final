@@ -1,12 +1,11 @@
 package co.edu.icesi.VirtualStore.service.impl;
 
-import co.edu.icesi.VirtualStore.dto.ItemDTO;
+import co.edu.icesi.VirtualStore.constant.ItemErrorCode;
 import co.edu.icesi.VirtualStore.model.Item;
 import co.edu.icesi.VirtualStore.repository.ItemsRepository;
 import co.edu.icesi.VirtualStore.service.ItemsService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -30,9 +29,14 @@ public class ItemsServiceImpl implements ItemsService {
 
     @Override
     public Item addItem(Item item) {
-
-        //Validaciones pendientes
-
+        validateItemExists(item.getName());
         return itemsRepository.save(item);
+    }
+
+    private void validateItemExists(String itemName) {
+        getItems().forEach(item -> {
+            if (item.getName().equals(itemName))
+                throw new RuntimeException(ItemErrorCode.CODE_01.getMessage());
+        });
     }
 }

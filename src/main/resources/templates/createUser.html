@@ -16,7 +16,7 @@
       <form th:action="@{/register}" th:object="${userDTO}" th:method="post">
         <div th:class="'form-group p-2'">
           <label for="inputEmail">Email:</label>
-          <input th:type="email" th:class="'form-control'" id="inputEmail" th:aria-describedby="emailHelp" th:placeholder="'Enter an email'" th:field="*{email}"/>
+          <input th:type="email" th:class="'form-control'" id="inputEmail" th:aria-describedby="emailHelp" th:placeholder="'Enter an email'" th:field="*{email}" required/>
           <small th:id="emailHelp" th:class="'text-muted'">
             The email must begin with alphanumeric characters (no special characters) followed by the @icesi.edu.co domain.
           </small>
@@ -30,11 +30,11 @@
         </div>
         <div th:class="'form-group p-2'">
           <label for="inputAddress">Address:</label>
-          <input th:type="text" th:class="'form-control'" id="inputAddress" th:placeholder="'Enter an address'" th:field="*{address}"/>
+          <input th:type="text" th:class="'form-control'" id="inputAddress" th:placeholder="'Enter an address'" th:field="*{address}" required/>
         </div>
         <div th:class="'form-group p-2'">
           <label for="inputPhoneNumber">Phone Number:</label>
-          <input th:type="text" th:class="'form-control'" id="inputPhoneNumber" th:aria-describedby="phoneNumberHelp" th:placeholder="'Enter a phone number'" th:field="*{phoneNumber}"/>
+          <input th:type="text" th:class="'form-control'" id="inputPhoneNumber" th:aria-describedby="phoneNumberHelp" th:placeholder="'Enter a phone number'" th:field="*{phoneNumber}" required/>
           <small th:id="phoneNumberHelp" th:class="'text-muted'">
             The phone number must begin with the +57 prefix followed by 10 digits, and mustn't have whitespaces.
           </small>
@@ -60,7 +60,7 @@
 </script>
 <span th:if="${userResponse != null}">
   <script th:if="${userResponse == true}" th:inline="javascript">
-    showAlert('OK', 'success', 'User sucesssfully created!');
+    showAlert('OK', 'success', 'User successfully created!');
   </script>
   <script th:if="${userResponse == false}" th:inline="javascript">
     showAlert('Retry', 'error', /*[[${message}]]*/);

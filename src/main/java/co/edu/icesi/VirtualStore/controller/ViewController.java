@@ -1,13 +1,12 @@
 package co.edu.icesi.VirtualStore.controller;
 
 import co.edu.icesi.VirtualStore.constant.UserErrorCode;
-import co.edu.icesi.VirtualStore.dto.LoggedUserDTO;
-import co.edu.icesi.VirtualStore.dto.LoginDTO;
-import co.edu.icesi.VirtualStore.dto.TokenDTO;
-import co.edu.icesi.VirtualStore.dto.UserDTO;
+import co.edu.icesi.VirtualStore.dto.*;
 import co.edu.icesi.VirtualStore.error.exception.UserError;
 import co.edu.icesi.VirtualStore.error.exception.UserException;
+import co.edu.icesi.VirtualStore.mapper.ItemMapper;
 import co.edu.icesi.VirtualStore.mapper.UserMapper;
+import co.edu.icesi.VirtualStore.service.ItemsService;
 import co.edu.icesi.VirtualStore.service.LoginService;
 import co.edu.icesi.VirtualStore.service.UserService;
 import lombok.AllArgsConstructor;
@@ -19,23 +18,21 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 import java.util.Objects;
 import java.util.Optional;
-
-import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 
 @Controller
 @AllArgsConstructor
 public class ViewController {
 
     private final UserService userService;
-    private final UserMapper userMapper;
     private final LoginService loginService;
+    private final ItemsService itemsService;
+    private final UserMapper userMapper;
+    private final ItemMapper itemMapper;
 
     @GetMapping("/signIn")
     public String signIn(Model model) {
@@ -82,7 +79,7 @@ public class ViewController {
 
     @PostMapping("/register")
     public String createUser(@Valid @ModelAttribute UserDTO userDTO, BindingResult errors, Model model) {
-        if (hasBindingErrors(errors, model, "userResponse")) {
+        if (!hasBindingErrors(errors, model, "userResponse")) {
             try {
                 validateEmptyIdentifiers(userDTO);
                 userService.createUser(userMapper.fromDTO(userDTO));
@@ -93,6 +90,32 @@ public class ViewController {
             }
         }
         return "createUser";
+    }
+
+    @GetMapping("/getUsers")
+    public String getUsers(Model model) {
+        model.addAttribute("users", userService.getUsers());
+        return "getUsers";
+    }
+
+    @GetMapping("/createNewItem")
+    public String createItem(Model model) {
+        model.addAttribute("itemDTO", new ItemDTO());
+        return "createItem";
+    }
+
+    @PostMapping("/createItem")
+    public String createItem(@Valid @ModelAttribute ItemDTO itemDTO, BindingResult errors, Model model) {
+        if (!hasBindingErrors(errors, model, "itemResponse")) {
+            try {
+                itemsService.addItem(itemMapper.fromDTO(itemDTO));
+                model.addAttribute("itemResponse", true);
+            } catch (RuntimeException runtimeException) {
+                model.addAttribute("itemResponse", false);
+                model.addAttribute("message", runtimeException.getMessage());
+            }
+        }
+        return "createItem";
     }
 
     private void validateEmptyIdentifiers(UserDTO userDTO) {
@@ -108,10 +131,4 @@ public class ViewController {
         }
         return false;
     }
-
-    /*@GetMapping("/getUsers")
-    public String getUsers(Model model) {
-        model.addAttribute("users", userService.getUsers());
-        return "getUsers";
-    }*/
 }

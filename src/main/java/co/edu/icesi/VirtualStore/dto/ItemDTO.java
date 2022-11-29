@@ -3,6 +3,8 @@ package co.edu.icesi.VirtualStore.dto;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+
+import javax.validation.constraints.DecimalMin;
 import java.util.UUID;
 
 @Data
@@ -16,6 +18,6 @@ public class ItemDTO {
 
     private String description;
 
+    @DecimalMin(value = "0", message = "The item price cannot be negative.")
     private double price;
-
 }
