@@ -15,9 +15,10 @@ class AdministratorTools extends Component{
               <Card style={{ width: '15rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
-                  <Card.Title>Crear item</Card.Title>
-                  <Card.Text>Crear un nuevo item para la tienda</Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <Card.Text>Crear un nuevo item para la tienda.</Card.Text>
+                  <a href="/crearItem">
+                    <Button variant="primary">Crear item</Button>
+                  </a>
                 </Card.Body>
               </Card>
             </Col>
@@ -25,9 +26,10 @@ class AdministratorTools extends Component{
               <Card style={{ width: '15rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
-                  <Card.Title>Ver items</Card.Title>
-                  <Card.Text>Crear un nuevo item para la tienda</Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <Card.Text>Listar y modificar los items actualmente creados en la tienda.</Card.Text>
+                  <a href="/crear">
+                    <Button variant="primary">Ver items</Button>
+                  </a>
                 </Card.Body>
               </Card>
             </Col>
@@ -35,9 +37,10 @@ class AdministratorTools extends Component{
               <Card style={{ width: '15rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
-                  <Card.Title>Ver pedidos</Card.Title>
-                  <Card.Text>Crear un nuevo item para la tienda</Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <Card.Text>Ver y modificar los pedidos actuales de la tienda.</Card.Text>
+                  <a href="/crear">
+                    <Button variant="primary">Ver pedidos</Button>
+                  </a>
                 </Card.Body>
               </Card>
             </Col>
@@ -45,9 +48,10 @@ class AdministratorTools extends Component{
               <Card style={{ width: '15rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
-                  <Card.Title>Ver usuarios</Card.Title>
-                  <Card.Text>Crear un nuevo item para la tienda</Card.Text>
-                  <Button variant="primary">Go somewhere</Button>
+                  <Card.Text>Listar todos los usuarios registrados en la aplicacion y ver su informacion. </Card.Text>
+                  <a href="/crear">
+                    <Button variant="primary">Ver usuarios</Button>
+                  </a>
                 </Card.Body>
               </Card>
             </Col>

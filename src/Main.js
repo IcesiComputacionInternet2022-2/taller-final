@@ -8,6 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import AdministratorTools from "./AdministratorView/AdministratorTools";
+import CreateItem from "./AdministratorView/CreateItem";
 
 class Main extends Component{
     render() {
@@ -24,6 +25,7 @@ class Main extends Component{
             <div className="content">
               <Routes>
                 <Route exact path="/crear" element={<AdministratorTools />} />
+                <Route exact path="/crearItem" element={<CreateItem />} />
               </Routes>
             </div>
           </BrowserRouter>
