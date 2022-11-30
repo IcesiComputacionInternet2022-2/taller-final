@@ -1,4 +1,4 @@
-package com.icesi.edu.users;
+package com.edu.icesi.virtualshop;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
