@@ -2,3 +2,13 @@
   padding-top: 5rem;
   padding-left: 4rem;
 }
+
+.search_bar{
+  padding-top: 4rem;
+  padding-left: 22rem;
+}
+
+.search_result{
+  padding-top: 4rem;
+  background-color: blue;
+}

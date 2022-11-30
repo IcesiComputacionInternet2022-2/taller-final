@@ -27,6 +27,9 @@ class CreateItem extends Component{
                   <td><label>Imagen: </label></td>
                   <td><input type="file" accept="image/png, .jpeg, .jpg"></input></td>
                 </tr>
+                <tr>
+                <td><input type="submit" value="Crear"/></td>
+                </tr>
               </table>
             </fieldset>
           </form>

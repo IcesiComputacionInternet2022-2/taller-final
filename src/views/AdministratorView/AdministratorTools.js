@@ -27,7 +27,7 @@ class AdministratorTools extends Component{
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
                   <Card.Text>Listar y modificar los items actualmente creados en la tienda.</Card.Text>
-                  <a href="/crear">
+                  <a href="/modifyItem">
                     <Button variant="primary">Ver items</Button>
                   </a>
                 </Card.Body>
@@ -38,7 +38,7 @@ class AdministratorTools extends Component{
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
                   <Card.Text>Ver y modificar los pedidos actuales de la tienda.</Card.Text>
-                  <a href="/crear">
+                  <a href="/modifyOrder">
                     <Button variant="primary">Ver pedidos</Button>
                   </a>
                 </Card.Body>
