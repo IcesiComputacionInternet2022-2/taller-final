@@ -23,6 +23,14 @@ public class OrderItem {
 
     private int quantity;
 
+    @ManyToOne
+    @JoinColumn(name = "item_id")
+    private Item item;
+
+    @ManyToOne
+    @JoinColumn(name = "order_id")
+    private Order order;
+
     @PrePersist
     public void generateId(){
         this.id = UUID.randomUUID();

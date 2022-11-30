@@ -12,6 +12,12 @@
             <column name="quantity" type="int">
                 <constraints nullable="false"/>
             </column>
+            <column name="item_id" type="UUID">
+                <constraints nullable="false" references="items(item_id)" foreignKeyName="fk-item"/>
+            </column>
+            <column name="order_id" type="UUID">
+                <constraints nullable="false" references="order(order_id)" foreignKeyName="fk-order"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

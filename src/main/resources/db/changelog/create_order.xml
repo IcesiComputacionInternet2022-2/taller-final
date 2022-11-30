@@ -15,6 +15,9 @@
             <column name="status" type="varchar(255)" >
                 <constraints nullable="false"/>
             </column>
+            <column name="user_id" type="UUID">
+                <constraints nullable="false" references="user(user_id)" foreignKeyName="fk-user"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
