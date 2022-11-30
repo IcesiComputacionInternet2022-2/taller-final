@@ -33,8 +33,8 @@ public class LoginServiceImpl implements LoginService {
                 .orElseThrow();
         if(user.getPassword().equals(loginDTO.getPassword())) {
             Map<String, String> claims = new HashMap<>();
-            claims.put("userId", user.getUserId().toString());
-            return new TokenDTO(JWTParser.createJWT(user.getUserId().toString(), claims,100000L));
+            claims.put("userId", user.getUser_id().toString());
+            return new TokenDTO(JWTParser.createJWT(user.getUser_id().toString(), claims,100000L));
         }
         throw new VirtualShopException(HttpStatus.UNAUTHORIZED, new VirtualShopError(VirtualShopErrorCode.CODE_008.toString(), VirtualShopErrorCode.CODE_008.getMessage()));
 

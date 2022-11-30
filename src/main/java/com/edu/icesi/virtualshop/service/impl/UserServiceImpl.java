@@ -43,9 +43,17 @@ public class UserServiceImpl implements UserService {
     private boolean isRepeated(String email,String number){
         List<User> users = getUsers();
         for (User x : users){
-            if (x.getPhoneNumber().equals(number) || x.getEmail().equals(email)){
-                return true;
+            if(x.getPhoneNumber()!=null){
+                if (x.getPhoneNumber().equals(number)){
+                    return true;
+                }
             }
+            if(x.getEmail() != null){
+                if(x.getEmail().equals(email)){
+                    return true;
+                }
+            }
+
         }
         return false;
     }

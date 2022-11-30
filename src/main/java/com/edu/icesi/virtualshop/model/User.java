@@ -6,16 +6,13 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.util.Date;
 import java.util.UUID;
 
 
 @Data
-@Table(name = "user")
+@Table(name = "users")
 @Entity
 @Builder
 @NoArgsConstructor
@@ -23,8 +20,7 @@ import java.util.UUID;
 public class User {
     @Id
     @Type(type="org.hibernate.type.UUIDCharType")
-
-    private UUID userId;
+    private UUID user_id;
 
     private String email;
 
@@ -45,7 +41,7 @@ public class User {
 
     @PrePersist
     public void generateId(){
-        this.userId = UUID.randomUUID();
+        this.user_id = UUID.randomUUID();
     }
 
 

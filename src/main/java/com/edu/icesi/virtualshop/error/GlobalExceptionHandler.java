@@ -6,6 +6,7 @@ import com.edu.icesi.virtualshop.error.exception.VirtualShopException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.ServletRequestBindingException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,8 +28,12 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({MethodArgumentNotValidException.class})
     public ResponseEntity<VirtualShopError> handleArgumentException(MethodArgumentNotValidException exception){
         BindingResult binding = exception.getBindingResult();
+        FieldError fieldError = binding.getFieldError();
+        String wrongField = "nullValues";
+        if(fieldError!=null){
+            wrongField = Objects.requireNonNull(fieldError).getField();
+        }
 
-        String wrongField = Objects.requireNonNull(binding.getFieldError()).getField();
 
         VirtualShopErrorCode errorCode = getErrorCode(wrongField);
 
@@ -40,13 +45,16 @@ public class GlobalExceptionHandler {
     }
 
     private VirtualShopErrorCode getErrorCode(String wrongField){
+        System.out.println(wrongField);
         switch (wrongField){
             case "password":
                 return VirtualShopErrorCode.CODE_001;
             case "email":
                 return VirtualShopErrorCode.CODE_006;
-            case "phone":
+            case "phoneNumber":
                 return VirtualShopErrorCode.CODE_007;
+            case "nullValues":
+                return VirtualShopErrorCode.CODE_005;
         }
         return null;
     }

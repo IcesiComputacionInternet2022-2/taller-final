@@ -8,12 +8,15 @@ public class EmailAndPhoneValidator implements ConstraintValidator<CustomAnnotat
 
     @Override
     public boolean isValid(UserCreateDTO userCreateDTO, ConstraintValidatorContext constraintValidatorContext) {
+        System.out.println("existo");
         if (!(userCreateDTO instanceof UserCreateDTO)) {
             throw new IllegalArgumentException("This annotation only applies to UserCreateDTO objects");
         }
         if(userCreateDTO.getPhone() == null && userCreateDTO.getEmail() == null){
             return false;
         }
+        System.out.println(userCreateDTO.getPhone());
+        System.out.println(userCreateDTO.getEmail());
         return true;
     }
 }

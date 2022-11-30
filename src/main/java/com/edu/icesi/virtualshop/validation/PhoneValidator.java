@@ -7,6 +7,9 @@ public class PhoneValidator implements ConstraintValidator<CustomAnnotations.Pho
 
     @Override
     public boolean isValid(String s, ConstraintValidatorContext constraintValidatorContext) {
-        return Pattern.compile("^\\\\+57\\\\d{10}").matcher(s).find();
+        if(s!=null){
+            return s.matches("^(\\+57)[0-9]{10}");
+        }
+        return true;
     }
 }

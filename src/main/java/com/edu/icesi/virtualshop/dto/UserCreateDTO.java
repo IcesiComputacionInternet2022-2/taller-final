@@ -15,8 +15,8 @@ import java.util.UUID;
 @NoArgsConstructor
 @CustomAnnotations.EmailAndPhoneValidation
 public class UserCreateDTO {
-    private UUID id;
 
+    private UUID user_id;
     @CustomAnnotations.EmailValidation
     private String email;
     @CustomAnnotations.PhoneValidation
@@ -28,7 +28,7 @@ public class UserCreateDTO {
     private String address;
 
     public String getPhone(){
-        return password;
+        return phoneNumber;
     }
 
     public String getEmail(){
