@@ -25,6 +25,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 @Controller
 @AllArgsConstructor
@@ -63,7 +64,8 @@ public class ViewController {
     }
 
     @GetMapping("/home")
-    public String home(){
+    public String home(Model model){
+        model.addAttribute("items", itemsService.getItems().stream().map(itemMapper::cartItemfromItem).collect(Collectors.toList()));
         return "home";
     }
 
@@ -110,9 +112,7 @@ public class ViewController {
 
     @GetMapping("/getItems")
     public String getItems(Model model){
-        List<Item> items = itemsService.getItems();
-        model.addAttribute("items",items);
-
+        model.addAttribute("items", itemsService.getItems().stream().map(itemMapper::cartItemfromItem).collect(Collectors.toList()));
         return "viewItems";
     }
 

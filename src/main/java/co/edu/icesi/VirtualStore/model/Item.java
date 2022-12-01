@@ -27,6 +27,8 @@ public class Item {
 
     private double price;
 
+    private String urlImage;
+
     @PrePersist
     public void generateId(){
         this.id = UUID.randomUUID();
