@@ -19,13 +19,14 @@ public class UserCreateDTO {
     private UUID user_id;
     @CustomAnnotations.EmailValidation
     private String email;
-    @CustomAnnotations.PhoneValidation
-    private String phoneNumber;
+
     @NotBlank
     @CustomAnnotations.PasswordValidation
     private String password;
 
     private String address;
+    @CustomAnnotations.PhoneValidation
+    private String phoneNumber;
 
     public String getPhone(){
         return phoneNumber;

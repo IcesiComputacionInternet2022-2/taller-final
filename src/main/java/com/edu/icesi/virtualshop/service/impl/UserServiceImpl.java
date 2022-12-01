@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import static com.edu.icesi.virtualshop.constants.VirtualShopErrorCode.CODE_003;
+import static com.edu.icesi.virtualshop.constants.VirtualShopErrorCode.CODE_004;
 
 @AllArgsConstructor
 @Service
@@ -24,7 +25,11 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public User getUser(UUID userId) {
-        return userRepository.findById(userId).orElse(null);
+        User user = userRepository.findById(userId).orElse(null);
+        if(user!=null){
+            return user;
+        }
+        throw new VirtualShopException(HttpStatus.BAD_REQUEST, new VirtualShopError(CODE_004.toString(),CODE_004.getMessage()));
     }
 
     @Override

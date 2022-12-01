@@ -33,7 +33,7 @@ public class GlobalExceptionHandler {
         if(fieldError!=null){
             wrongField = Objects.requireNonNull(fieldError).getField();
         }
-
+        //System.out.println(wrongField);
 
         VirtualShopErrorCode errorCode = getErrorCode(wrongField);
 

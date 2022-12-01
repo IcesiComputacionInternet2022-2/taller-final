@@ -1,10 +1,12 @@
 package com.edu.icesi.virtualshop.error.exception;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
+import lombok.*;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-@Data
+@Builder
 public class VirtualShopError {
     private String code;
     private String message;

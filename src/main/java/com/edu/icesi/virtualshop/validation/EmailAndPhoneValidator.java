@@ -15,8 +15,6 @@ public class EmailAndPhoneValidator implements ConstraintValidator<CustomAnnotat
         if(userCreateDTO.getPhone() == null && userCreateDTO.getEmail() == null){
             return false;
         }
-        System.out.println(userCreateDTO.getPhone());
-        System.out.println(userCreateDTO.getEmail());
         return true;
     }
 }
