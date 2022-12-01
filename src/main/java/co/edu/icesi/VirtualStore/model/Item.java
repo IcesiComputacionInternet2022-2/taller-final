@@ -6,8 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
-import javax.validation.Constraint;
-import javax.validation.constraints.NotNull;
 import java.util.UUID;
 
 @Data
@@ -23,13 +21,10 @@ public class Item {
     @Column(name = "item_id")
     private UUID id;
 
-    @NotNull
     private String name;
 
-    @NotNull
     private String description;
 
-    @NotNull
     private double price;
 
     @PrePersist

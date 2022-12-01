@@ -23,19 +23,38 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
-    public Item getItem(UUID itemId) {
+    public Item getItemByID(UUID itemId) {
         return itemsRepository.findById(itemId).orElse(null);
     }
 
     @Override
-    public Item addItem(Item item) {
+    public void addItem(Item item) {
         validateItemExists(item.getName());
-        return itemsRepository.save(item);
+        item.setName(item.getName().toUpperCase());
+        itemsRepository.save(item);
+    }
+
+    @Override
+    public void modifyItem(UUID itemID, String attribute, String newValue) {
+        itemsRepository.findById(itemID).orElseThrow(() -> new RuntimeException(ItemErrorCode.CODE_02.getMessage()));
+        switch (attribute) {
+            case "0":
+                throw new RuntimeException(ItemErrorCode.CODE_03.getMessage());
+            case "1":
+                itemsRepository.updateItemName(itemID, newValue);
+                break;
+            case "2":
+                itemsRepository.updateItemDescription(itemID, newValue);
+                break;
+            case "3":
+                itemsRepository.updateItemPrice(itemID, Double.parseDouble(newValue));
+                break;
+        }
     }
 
     private void validateItemExists(String itemName) {
         getItems().forEach(item -> {
-            if (item.getName().equals(itemName))
+            if (item.getName().equalsIgnoreCase(itemName))
                 throw new RuntimeException(ItemErrorCode.CODE_01.getMessage());
         });
     }
