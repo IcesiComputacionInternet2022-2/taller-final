@@ -34,7 +34,8 @@ public class UserServiceTest {
         String password = "aa@aaa1A";
         String address = "Carrera 5 No 20-14 Conjunto residencial las Acacias, casa 33";
 
-        user = new User(uuid, email, phoneNumber,password,address);
+
+        user = new User(uuid, email, phoneNumber,password,address,null);
     }
 
     @Test
@@ -66,7 +67,7 @@ public class UserServiceTest {
         String address2 = "Calle 5ta 29";
 
         //Create User
-        User user2 = new User(uuid2, email2, phoneNumber2,password2,address2);
+        User user2 = new User(uuid2, email2, phoneNumber2,password2,address2,null);
         userService.createUser(user);
         userService.createUser(user2);
         userService.getUsers();

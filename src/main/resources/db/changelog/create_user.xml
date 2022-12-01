@@ -7,13 +7,17 @@
     <changeSet id="33d4e6bc-7210-47c3-9617-c56ab7c0750d" author="1KVueltasAlCampo" failOnError="true">
 
         <createTable tableName="users">
-            <column name="user_id" type="UUID">
+            <column name="id" type="UUID">
                 <constraints nullable="false" primaryKey="true" />
             </column>
-            <column name="email" type="varchar(120)" />
-            <column name="password" type="varchar(120)" />
-            <column name="address" type="varchar(120)" />
-            <column name="phone_number" type="varchar(120)" />
+            <column name="email" type="varchar(255)" />
+            <column name="phone_number" type="varchar(255)" />
+            <column name="first_name" type="varchar(255)" />
+            <column name="last_name" type="varchar(255)" />
+            <column name="password" type="varchar(255)" />
+            <column name="role_id" type="UUID">
+                <constraints nullable="false" references="user_role(role_id)" foreignKeyName="fk-user-role"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

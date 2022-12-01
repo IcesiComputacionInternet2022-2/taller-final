@@ -6,33 +6,34 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
-import javax.persistence.PrePersist;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.util.List;
 import java.util.UUID;
 
 @Data
-@Table(name = "userRole")
+@Table(name = "user_role")
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
-
     @Id
-    @Type(type="org.hibernate.type.UUIDCharType")
-
+    @Type(type="org.hibernate.type.PostgresUUIDType")
     private UUID roleId;
 
+    @Column(name = "role_name")
     private String name;
 
     private String description;
 
-    @PrePersist
-    public void generateId(){
-        this.roleId = UUID.randomUUID();
-    }
-
+    @ManyToMany(cascade = {
+            CascadeType.PERSIST,
+            CascadeType.MERGE
+    }, fetch = FetchType.EAGER)
+    @JoinTable(
+            name = "role_permission",
+            joinColumns = @JoinColumn(name = "role_id"),
+            inverseJoinColumns = @JoinColumn(name = "permission_id"))
+    private List<Permission> rolePermissions;
 
 }

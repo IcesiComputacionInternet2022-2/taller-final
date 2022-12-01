@@ -20,4 +20,6 @@ public class UserDTO {
     private String address;
 
     private String phoneNumber;
+
+    private RoleDTO role;
 }

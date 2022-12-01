@@ -6,8 +6,7 @@ import org.springframework.boot.autoconfigure.security.servlet.SecurityAutoConfi
 import org.springframework.context.annotation.Import;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-@SpringBootApplication(exclude = {SecurityAutoConfiguration.class })
-@Import({com.edu.icesi.virtualshop.config.InitialDataConfig.class})
+@SpringBootApplication
 @EnableJpaRepositories
 public class VirtualshopApplication {
 

@@ -73,7 +73,7 @@ export default class create extends React.Component{
                 <input value={this.address} onChange={this.handleChange} type="address" placeholder="youremail@gmail.com" id="address" name="address" />
                 <label htmlFor="password">Password</label>
                 <input value={this.password} onChange={this.handleChange} type="password" placeholder="********" id="password" name="password" />
-                <button type="submit">Register</button>
+                <button type="submit" >Register</button>
             </form>
             <button className="link-btn" onClick={() => this.props.onFormSwitch('login')}>Already have an account? Login here.</button>
         </div>

@@ -34,7 +34,7 @@ public class UserControllerTest {
         String phoneNumber = "+573162970888";
         String password = "aa@aaa1A";
         String address = "Carrera 5 No 20-14 Conjunto residencial las Acacias, casa 33";
-        userCreateDTO = new UserCreateDTO(uuid,email,phoneNumber,password,address);
+        userCreateDTO = new UserCreateDTO(uuid,email,phoneNumber,password,address,null);
     }
 
     @Test

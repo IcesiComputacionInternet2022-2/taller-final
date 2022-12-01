@@ -28,6 +28,8 @@ public class UserCreateDTO {
     @CustomAnnotations.PhoneValidation
     private String phoneNumber;
 
+    private UUID roleId;
+
     public String getPhone(){
         return phoneNumber;
     }
