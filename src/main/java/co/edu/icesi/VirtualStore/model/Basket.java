@@ -1,45 +1,38 @@
 package co.edu.icesi.VirtualStore.model;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.util.List;
 import java.util.UUID;
 
 @Data
-@Table(name = "users")
+@Table(name = "baskets")
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class User {
+public class Basket {
 
     @Id
     @Type(type="org.hibernate.type.PostgresUUIDType")
-    @Column(name = "user_id")
+    @Column(name = "basket_id")
     private UUID id;
 
+    @OneToOne
+    @JoinColumn(name = "user_id")
     @NotNull
-    private String email;
-
-    @NotNull
-    private String password;
-
-    @NotNull
-    private String address;
-
-    @Column(name = "phone_number")
-    private String phoneNumber;
-
-    @ManyToOne
-    @JoinColumn(name = "role_id")
-    private Role role;
+    private User user;
 
     @PrePersist
     public void generateId(){
         this.id = UUID.randomUUID();
     }
+
 }

@@ -19,5 +19,17 @@
                 <constraints nullable="false"/>
             </column>
         </createTable>
+        <insert tableName="items">
+            <column name="item_id" value="44c953c9-daf4-45a9-bb41-288fce256c40"/>
+            <column name="name" value="Gaming PC"/>
+            <column name="description" value="A powerful pc"/>
+            <column name="price" value="2000" />
+        </insert>
+        <insert tableName="items">
+            <column name="item_id" value="44c953c9-daf4-45a9-bb41-288fce256c41"/>
+            <column name="name" value="Business PC"/>
+            <column name="description" value="A everyday use pc"/>
+            <column name="price" value="1500" />
+        </insert>
     </changeSet>
 </databaseChangeLog>

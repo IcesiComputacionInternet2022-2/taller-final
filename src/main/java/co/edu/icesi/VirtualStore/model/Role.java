@@ -3,6 +3,7 @@ package co.edu.icesi.VirtualStore.model;
 import lombok.Data;
 import org.hibernate.annotations.Type;
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 import java.util.UUID;
 
@@ -16,8 +17,10 @@ public class Role {
     @Column(name = "role_id")
     private UUID id;
 
+    @NotNull
     private String name;
 
+    @NotNull
     private String description;
 
     @ManyToMany(cascade = {

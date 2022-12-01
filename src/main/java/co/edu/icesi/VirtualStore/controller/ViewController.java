@@ -6,6 +6,8 @@ import co.edu.icesi.VirtualStore.error.exception.UserError;
 import co.edu.icesi.VirtualStore.error.exception.UserException;
 import co.edu.icesi.VirtualStore.mapper.ItemMapper;
 import co.edu.icesi.VirtualStore.mapper.UserMapper;
+import co.edu.icesi.VirtualStore.model.Item;
+import co.edu.icesi.VirtualStore.service.BasketService;
 import co.edu.icesi.VirtualStore.service.ItemsService;
 import co.edu.icesi.VirtualStore.service.LoginService;
 import co.edu.icesi.VirtualStore.service.UserService;
@@ -21,8 +23,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 @AllArgsConstructor
@@ -31,6 +35,8 @@ public class ViewController {
     private final UserService userService;
     private final LoginService loginService;
     private final ItemsService itemsService;
+
+    private final BasketService basketService;
     private final UserMapper userMapper;
     private final ItemMapper itemMapper;
 
@@ -91,6 +97,46 @@ public class ViewController {
         }
         return "createUser";
     }
+
+    @PostMapping("/createOrder")
+    public String createOrder(List<OrderItemDTO> orderItems, Model model){
+
+        return "NOT IMPLEMENTED";
+    }
+
+    //Metodo add item to basket
+    //Metodo remove item from basket
+    //Metodo place order
+    //view orders
+    //remove orders
+
+    @GetMapping("/getItems")
+    public String getItems(Model model){
+        List<Item> items = itemsService.getItems();
+        model.addAttribute("items",items);
+
+        return "viewItems";
+    }
+
+    @PostMapping("/addItemToBasket")
+    public String addItemToBasket(HttpServletRequest request, Item item, String quantity, Model model){
+
+        System.out.println(item);
+        System.out.println(quantity);
+
+        //UUID trueItemId = UUID.fromString(itemId);
+
+
+        HttpSession session = request.getSession();
+        LoggedUserDTO loggedUserDTO = ((LoggedUserDTO) session.getAttribute("LoggedUser"));
+
+        basketService.createBasket(userMapper.userFromLoggedUserDTO(loggedUserDTO));
+
+        basketService.addItemToBasket(loggedUserDTO.getId(),item,Integer.parseInt(quantity));
+
+        return "viewItems";
+    }
+
 
     @GetMapping("/getUsers")
     public String getUsers(Model model) {
