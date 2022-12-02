@@ -124,6 +124,31 @@ public class OrderServiceTest {
     }
 
     @Test
+    void testModifyStatus(){
+        createTestOrder();
+
+        doNothing().when(orderRepository).updateStatus(testOrder.getId(), "SENT");
+
+        orderService.modifyStatus(testOrder.getId(), "SENT");
+
+        verify(orderRepository,times(1)).updateStatus(ArgumentMatchers.any(), ArgumentMatchers.any());
+
+    }
+
+    @Test
+    void testGetOrders(){
+        createTestOrder();
+
+        when(orderRepository.findAll()).thenReturn(List.of(testOrder));
+
+        List<Order> orders = orderService.getOrders();
+
+        verify(orderRepository,times(1)).findAll();
+        assertEquals(1, orders.size());
+
+    }
+
+    @Test
     void testRemoveOrderStatusNotRemovable(){
         createTestOrder();
 

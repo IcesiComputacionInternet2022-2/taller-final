@@ -62,6 +62,17 @@ public class UserServiceTest {
     }
 
     @Test
+    void testModifyStatus(){
+
+        doNothing().when(userRepository).updateUserToAdmin(testUser.getId());
+
+        userService.makeAdmin(testUser.getId());
+
+        verify(userRepository,times(1)).updateUserToAdmin(ArgumentMatchers.any());
+
+    }
+
+    @Test
     void testGetUserByEmail(){
         when(userRepository.findByEmail(testUser.getEmail())).thenReturn(Optional.of(testUser));
 
