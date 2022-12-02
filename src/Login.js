@@ -19,8 +19,8 @@ class Login extends Component{
   }
   
   componentDidMount(){
-    const token = "ivalido";
-    const type = "user";
+    const token = "valido";
+    const type = "a";
     if(token === "valido"){
       this.setState({logged: true});
       if(type === "admin")

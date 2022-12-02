@@ -12,11 +12,11 @@ class CreateItem extends Component{
   
   render(){
     return(
-      <div class="DOM_MARGIN">
+      <div style={{'padding-top':'5%', 'padding-left':'30%'}}>
         <Container>
           <form onSubmit={this.createItem}>
             <fieldset>
-              <legend>Crear item</legend>
+              <legend style={{'padding-left':'17%'}}>Crear item</legend>
               <table>
                 <tr>
                   <td><label>Nombre: </label></td>

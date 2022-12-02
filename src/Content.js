@@ -16,6 +16,7 @@ import ListUsers from "./views/AdministratorView/ListUsers";
 import ListItems from "./views/Items/ListItems";
 import ShoppingCart from "./views/Items/ShoppingCart";
 import RegisterUser from "./RegisterUser";
+import ListOrders from "./views/Items/ListOrders";
 import Login from "./Login";
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
@@ -39,7 +40,7 @@ class Content extends Component{
                 <Nav className="me-auto">
                   <Nav.Link href="/view/items/list-items">Ver productos</Nav.Link>
                   <Nav.Link href="/view/items/shopping-cart">Ver carrito</Nav.Link>
-                  <Nav.Link href="/">Ver ordenes</Nav.Link>
+                  <Nav.Link href="/view/items/orders">Ver ordenes</Nav.Link>
                   <Nav.Link>
                     <button class="salir" onClick={()=>alert("saliendo")}>Salir</button>
                   </Nav.Link>
@@ -56,6 +57,7 @@ class Content extends Component{
             <Route exact path="/view/admin/tools/list-users" element={<ListUsers />} />
             <Route exact path="/view/register" element={<RegisterUser />} />
             <Route exact path="/view/login" element={<Login />} />
+            <Route exact path="/view/items/orders" element={<ListOrders />} />
             <Route exact path="/view/items/list-items" element={<ListItems />} />
             <Route exact path="/view/items/shopping-cart" element={<ShoppingCart />} />
             <Route exact path='/' element={<Navigate to="/view/login"/>}/>
