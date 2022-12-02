@@ -22,7 +22,6 @@ public class User {
     @Column(name = "user_id")
     private UUID id;
 
-    @NotNull
     private String email;
 
     @NotNull

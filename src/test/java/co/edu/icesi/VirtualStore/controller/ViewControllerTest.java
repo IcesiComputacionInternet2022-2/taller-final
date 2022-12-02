@@ -74,9 +74,9 @@ public class ViewControllerTest {
 
         assertEquals("home", viewController.home(model, httpServletRequest));
 
-       verify(model, times(2)).addAttribute(any(),any());
-       verify(httpServletRequest, times(1)).getSession();
-       verify(itemsService, times(1)).getItems();
+        verify(model, times(2)).addAttribute(any(),any());
+        verify(httpServletRequest, times(1)).getSession();
+        verify(itemsService, times(1)).getItems();
     }
 
     @Test
