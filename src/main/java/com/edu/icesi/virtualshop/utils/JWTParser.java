@@ -4,6 +4,7 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.web.bind.annotation.CrossOrigin;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
@@ -11,6 +12,7 @@ import java.security.Key;
 import java.util.Date;
 import java.util.Map;
 
+@CrossOrigin(origins = "*")
 public class JWTParser {
 
     private static final String SECRET_KEY= "contodorespetoprofesornovoyahacerunallavesecretaparaalgoacademicoxd";
@@ -37,6 +39,7 @@ public class JWTParser {
         return builder.compact();
     }
 
+    @CrossOrigin(origins = "*")
     public static Claims decodeJWT(String jwt){
         return Jwts.parserBuilder().setSigningKey(DatatypeConverter.parseBase64Binary(SECRET_KEY)).build().parseClaimsJws(jwt).getBody();
     }

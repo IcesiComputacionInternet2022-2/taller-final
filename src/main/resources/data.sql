@@ -16,5 +16,5 @@ INSERT INTO role_permission(role_id, permission_id)
 VALUES ('50342c5d-17e8-490f-b753-3898041c97e8', 'ccc7ff73-1989-413a-ab52-9bec7a049e33') ON CONFLICT DO NOTHING;
 
 --Usuario admin (me voy a decidir entre ingles o español o que?)
-INSERT INTO users(id,email,password,address,phone_number,role_id)
-VALUES ('a5f8cb61-e99a-4965-9301-e68ae79cebf7','soyadmin@gmail.com','aa@aaa1A','Calle 121','+573166747989','50342c5d-17e8-490f-b753-3898041c97e8');
+INSERT INTO users(user_id,email,password,address,phone_number,role_id)
+VALUES ('a5f8cb61-e99a-4965-9301-e68ae79cebf7','soyadmin@gmail.com','aa@aaa1A','Calle 121','+573166747989','50342c5d-17e8-490f-b753-3898041c97e8') ON CONFLICT DO NOTHING;

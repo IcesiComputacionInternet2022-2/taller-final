@@ -36,6 +36,8 @@ public class User {
 
 
     public String getLoginAttribute(){
+        System.out.println(email);
+        System.out.println(phoneNumber);
         if(email!=null){
             return email;
         }

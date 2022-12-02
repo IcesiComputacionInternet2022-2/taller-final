@@ -1,5 +1,4 @@
 import React from 'react';
-import PostMethod from '../utils/PostMethod'
 
 export default class create extends React.Component{
 

@@ -26,15 +26,19 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public TokenDTO login(LoginDTO loginDTO) {
-
+        System.out.println("me llamo");
+        System.out.println(loginDTO.getLoginAttribute());
         User user = StreamSupport.stream(userRepository.findAll().spliterator(),false)
                 .filter(user1 -> user1.getLoginAttribute().equals(loginDTO.getLoginAttribute()))
                 .findFirst()
-                .orElseThrow();
-        if(user.getPassword().equals(loginDTO.getPassword())) {
-            Map<String, String> claims = new HashMap<>();
-            claims.put("userId", user.getUser_id().toString());
-            return new TokenDTO(JWTParser.createJWT(user.getUser_id().toString(), claims,100000L));
+                .orElse(null);
+        if(user != null){
+            if(user.getPassword().equals(loginDTO.getPassword())) {
+                Map<String, String> claims = new HashMap<>();
+                claims.put("id", user.getUser_id().toString());
+                claims.put("roleId", user.getRole().getRoleId().toString());
+                return new TokenDTO(JWTParser.createJWT(user.getUser_id().toString(), claims,10000000000000L));
+            }
         }
         throw new VirtualShopException(HttpStatus.UNAUTHORIZED, new VirtualShopError(VirtualShopErrorCode.CODE_008.toString(), VirtualShopErrorCode.CODE_008.getMessage()));
 

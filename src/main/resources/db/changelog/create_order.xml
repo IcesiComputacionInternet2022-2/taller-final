@@ -13,7 +13,7 @@
             <column name="total" type="number" />
             <column name="status" type="varchar(120)" />
             <column name="user_id" type="UUID">
-                <constraints foreignKeyName="fk_user_id" references="users(id)" nullable="false"/>
+                <constraints foreignKeyName="fk_user_id" references="users(user_id)" nullable="false"/>
             </column>
         </createTable>
     </changeSet>

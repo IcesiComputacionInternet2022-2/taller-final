@@ -7,7 +7,7 @@
     <changeSet id="73d4e6bc-7210-47c3-9617-c56ab7c0750d" author="1KVueltasAlCampo" failOnError="true">
 
         <createTable tableName="users">
-            <column name="id" type="UUID">
+            <column name="user_id" type="UUID">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="email" type="varchar(255)" />
