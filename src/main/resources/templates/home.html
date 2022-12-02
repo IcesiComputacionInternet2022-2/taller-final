@@ -20,8 +20,10 @@
                 <a class="nav-link" href="./home" style="color: white">Home</a>
                 <a class="nav-link" href="./getUsers" style="color: white" th:if="${role.equals('Admin')}">Users</a>
                 <a class="nav-link" href="./getOrders" style="color: white">Orders</a>
-                <a class="nav-link" href="./getCart" style="color: white">Cart</a>
+                <a class="nav-link" href="./getCart" style="color: white" th:if="${!role.equals('Admin')}">Cart</a>
                 <a>&nbsp;</a>
+                <button onclick="window.location.href='/createNewItem'" th:class="'btn btn-success'" th:if="${role.equals('Admin')}">Create Item</button>
+                <a th:if="${role.equals('Admin')}">&nbsp;&nbsp;&nbsp;</a>
                 <button onclick="window.location.href='/logout'" th:class="'btn btn-danger'">Logout</button>
             </div>
         </div>
@@ -50,16 +52,19 @@
                                 <label for="price" class="label">Price</label>
                                 <input type="number" id="price" class="form-control price" aria-label="Username" th:name="price" th:value="${item.price}" readonly>
                             </div>
-                            <div class="form-group p-2">
+                            <div class="form-group p-2" th:if="${!role.equals('Admin')}">
                                 <label for="quantity" class="label">Quantity</label>
                                 <input type="number" id="quantity" th:class="'form-control quantity-'+${i.count}" aria-label="Username" th:name="quantity" th:value="${item.quantity}">
                                 <div th:class="'errorsp invalidQuantity-' +${i.count} + ' hidden'"></div>
                             </div>
                             <br>
-                            <div class="d-grid gap-2">
+                            <div class="d-grid gap-2" th:if="${!role.equals('Admin')}">
                                 <span class="d-grid gap-2 toolTipSubmit" tabindex="0" data-bs-toggle="tooltip" title="The button will be activated when the form is filled out correctly.">
                                     <button type="submit" th:class="'btn btn-primary btn-block add-'+${i.count}" disabled>Add</button>
                                 </span>
+                            </div>
+                            <div class="d-grid gap-2" th:if="${role.equals('Admin')}">
+                                <button type="button" th:attr="onclick=|modifyItem('${item.id}')|" th:class="'btn btn-primary'">Modify Item</button>
                             </div>
                         </form>
                     </div>
@@ -80,6 +85,10 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         }
     )
+
+    function modifyItem(itemId) {
+        window.location.href = '/modifyItem?itemId=' + itemId;
+    }
 </script>
 </body>
 </html>
