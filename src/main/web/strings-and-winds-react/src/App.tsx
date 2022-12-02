@@ -8,7 +8,7 @@ import {Landing} from "./pages/Landing";
 import {Navbar} from "./components/Navbar";
 import {Orders} from "./pages/Orders";
 import { SignUp } from './pages/SignUp';
-import { PublishItem } from './pages/PublisItem';
+import { PublishItem } from './pages/PublishItem';
 import { UnknownUrl } from './pages/UnknownUrl';
 import {Footer} from "./components/Footer";
 
@@ -40,7 +40,7 @@ const App = () => {
 
     return (
         <UserToken.Provider value={state} >
-            <div className={"h-screen"}>
+            <div className={"h-full"}>
                 <Navbar isAdmin={isAdmin} handleLogout={handleLogout}/>
                 <Routes>
                     <Route path={"/"} element={<Landing adminState={[isAdmin, setIsAdmin]}/>}/>
@@ -53,7 +53,6 @@ const App = () => {
                     <Route path={"admin/publish-item"} element={<PublishItem/>}/>
                     <Route path={"*"} element={<UnknownUrl/>}/>
                 </Routes>
-                <Footer/>
         </div>
       </UserToken.Provider>
   );
