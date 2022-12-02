@@ -13,9 +13,13 @@ import CreateItem from "./views/AdministratorView/CreateItem";
 import ModifyItem from "./views/AdministratorView/ModifyItem";
 import ModifyOrder from "./views/AdministratorView/ModifyOrder";
 import ListUsers from "./views/AdministratorView/ListUsers";
-import ListItems from "./views/UserView/ListItems";
+import ListItems from "./views/Items/ListItems";
+import ShoppingCart from "./views/Items/ShoppingCart";
 import RegisterUser from "./RegisterUser";
 import Login from "./Login";
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
+import "./style/login.css";
 
 class Content extends Component{
   /*componentDidMount(){
@@ -27,16 +31,22 @@ class Content extends Component{
   render(){
     return(
       <BrowserRouter>
-        <Navbar bg="dark" variant="dark">
-          <Container>
-            <Navbar.Brand href="/">Music Shop</Navbar.Brand>
-            <Nav className="me-auto">
-              <Nav.Link href="/"></Nav.Link>
-              <Nav.Link href="/"></Nav.Link>
-              <Nav.Link href="/"></Nav.Link>
-            </Nav>
-          </Container>
-        </Navbar>
+        <Row>
+          <Navbar bg="dark" variant="dark">
+            <Container>
+                <Col><Navbar.Brand href="/">Music Shop</Navbar.Brand></Col>
+                <Col><Navbar.Toggle aria-controls="responsive-navbar-nav" /></Col>
+                <Nav className="me-auto">
+                  <Nav.Link href="/view/items/list-items">Ver productos</Nav.Link>
+                  <Nav.Link href="/view/items/shopping-cart">Ver carrito</Nav.Link>
+                  <Nav.Link href="/">Ver ordenes</Nav.Link>
+                  <Nav.Link>
+                    <button class="salir" onClick={()=>alert("saliendo")}>Salir</button>
+                  </Nav.Link>
+                </Nav>
+            </Container>
+          </Navbar>
+        </Row>
         <div className="content">
           <Routes>
             <Route exact path="/view/admin/tools" element={<AdministratorTools />} />
@@ -46,7 +56,8 @@ class Content extends Component{
             <Route exact path="/view/admin/tools/list-users" element={<ListUsers />} />
             <Route exact path="/view/register" element={<RegisterUser />} />
             <Route exact path="/view/login" element={<Login />} />
-            <Route exact path="/view/user/list-items" element={<ListItems />} />
+            <Route exact path="/view/items/list-items" element={<ListItems />} />
+            <Route exact path="/view/items/shopping-cart" element={<ShoppingCart />} />
             <Route exact path='/' element={<Navigate to="/view/login"/>}/>
           </Routes>
         </div>

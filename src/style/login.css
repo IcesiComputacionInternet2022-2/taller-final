@@ -12,5 +12,20 @@
 
 .boton{
   width: 20em;
-  padding-left: 30%;
+  padding-left: 14%;
+}
+
+.espaciado{
+  width: 9px;
+}
+
+.salir{
+  background-color: transparent;
+  color: gray;
+  border: transparent;
+  widht: 2rem; 
+}
+
+.salir:hover{
+	color: white;
 }

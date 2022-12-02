@@ -19,14 +19,14 @@ class Login extends Component{
   }
   
   componentDidMount(){
-    const token = "valido";
-    const type = "admin";
+    const token = "ivalido";
+    const type = "user";
     if(token === "valido"){
       this.setState({logged: true});
       if(type === "admin")
         window.location.href = "/view/admin/tools"; 
       else
-        window.location.href = "/view/user/list-items"; 
+        window.location.href = "/view/items/list-items"; 
     }else
       this.setState({logged: false});
   }//End componentDidMount
@@ -38,7 +38,7 @@ class Login extends Component{
     if(data.get("email") === "admin")
       window.location.href = "/view/admin/tools"; 
     else
-      window.location.href = "/view/user/list-items"; 
+      window.location.href = "/view/items/list-items"; 
   }
   
   renderLogin(){
@@ -58,24 +58,28 @@ class Login extends Component{
                   </tr>
                   <div style={{'padding-top': '2%'}}></div>
                   <tr>
-                    <td>
-                      <div class="boton">
-                        <input type="submit" value="Ingresar"/>
-                      </div>
-                    </td>
+                    <div class="boton">
+                      <td>
+                        <button type="submit">Ingresar</button>
+                      </td>
+                      <td><div class="espaciado"></div></td>
+                      <td>
+                        <a href="/view/register">
+                          <button type="button">Registrar</button>
+                        </a>
+                      </td>
+                    </div>
                   </tr>
                 </table>
               </fieldset>
             </form>
           </div>
       );
-    else
-      return ;
   }
   
   render(){
     return(
-      <div>{this.renderLogin}</div>
+      <div>{this.renderLogin()}</div>
     );
   }//End render
 }//End Login
