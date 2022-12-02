@@ -1,19 +1,5 @@
 import React from 'react';
-
-async function postPrayer(url,obj){
-    let res = await fetch(url,{
-        method : "POST",
-        headers: {
-            'Content-Type':'application/json',
-            'Accept':'application/json'
-        },
-        body : JSON.stringify(obj)
-    })
-
-    let response = await res.json()
-
-    return response
-}
+import PostMethod from '../utils/PostMethod'
 
 export default class create extends React.Component{
 
@@ -30,10 +16,6 @@ export default class create extends React.Component{
 
     handleSubmit = async e=>{
         e.preventDefault();
-        let newR = await postPrayer("http://localhost:8080/zooregisters",this.state)    
-        const {message} = newR
-        if (message) alert(message)
-        else alert("Se ha creado un nuevo usuario ")
     }
 
     handleChange = e=> {

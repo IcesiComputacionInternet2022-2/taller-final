@@ -17,9 +17,6 @@
             <column name="role_id" type="UUID">
                 <constraints nullable="false" references="user_role(role_id)" foreignKeyName="fk-user-role"/>
             </column>
-            <column name="order_id" type="UUID">
-                <constraints nullable="false" references="order(order_id)" foreignKeyName="fk-user-order"/>
-            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>

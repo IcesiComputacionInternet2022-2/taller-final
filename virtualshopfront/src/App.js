@@ -2,7 +2,7 @@ import React, { useState } from "react";
 import logo from './logo.svg';
 import './App.css';
 import styled from 'styled-components';
-import { Login } from "./pages/login";
+import Login from "./pages/login";
 import Register from "./pages/register";
 
 function App() {

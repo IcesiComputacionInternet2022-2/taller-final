@@ -13,6 +13,7 @@
             <column name="name" type="varchar(120)" />
             <column name="description" type="varchar(120)" />
             <column name="price" type="number" />
+            <column name="url" type="varchar(255)"/>
         </createTable>
     </changeSet>
 </databaseChangeLog>
