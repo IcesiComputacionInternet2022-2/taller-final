@@ -45,9 +45,7 @@ public class UserServiceImpl implements UserService {
     }
 
     private void validateUserExists(String email, String phoneNumber) {
-        getUsers().forEach(user -> {
-            if ((user.getEmail() != null && user.getEmail().equals(email)) || (user.getPhoneNumber() != null && user.getPhoneNumber().equals(phoneNumber)))
-                throw new UserException(HttpStatus.BAD_REQUEST, new UserError(UserErrorCode.CODE_05, UserErrorCode.CODE_05.getMessage()));
-        });
+        if(userRepository.findByEmail(email).isPresent() || userRepository.findByPhoneNumber(phoneNumber).isPresent())
+            throw new UserException(HttpStatus.BAD_REQUEST, new UserError(UserErrorCode.CODE_05, UserErrorCode.CODE_05.getMessage()));
     }
 }

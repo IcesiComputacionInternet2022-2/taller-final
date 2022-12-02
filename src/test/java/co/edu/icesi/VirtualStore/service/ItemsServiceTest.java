@@ -24,7 +24,7 @@ public class ItemsServiceTest {
 
     private Item testItem;
 
-    private UUID testItemUUID = UUID.fromString("1887fcda-c227-400b-ad7c-541802a92d74");
+    private final UUID testItemUUID = UUID.fromString("1887fcda-c227-400b-ad7c-541802a92d74");
 
     @BeforeEach
     void init(){

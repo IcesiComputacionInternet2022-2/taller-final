@@ -1,6 +1,5 @@
 package co.edu.icesi.VirtualStore.service;
 
-import co.edu.icesi.VirtualStore.constant.ItemErrorCode;
 import co.edu.icesi.VirtualStore.constant.UserErrorCode;
 import co.edu.icesi.VirtualStore.dto.LoginDTO;
 import co.edu.icesi.VirtualStore.dto.TokenDTO;
@@ -8,14 +7,10 @@ import co.edu.icesi.VirtualStore.error.exception.UserException;
 import co.edu.icesi.VirtualStore.model.User;
 import co.edu.icesi.VirtualStore.repository.UserRepository;
 import co.edu.icesi.VirtualStore.service.impl.LoginServiceImpl;
-import co.edu.icesi.VirtualStore.utils.JWTParser;
-import org.aspectj.lang.annotation.Before;
-import org.h2.engine.UserBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.ArgumentMatchers;
+import org.springframework.http.HttpStatus;
 
-import java.util.ArrayList;
 import java.util.Collections;
 import java.util.UUID;
 
@@ -28,7 +23,7 @@ public class LoginServiceTest {
 
     private UserRepository userRepository;
 
-    private UUID testUserUUID = UUID.fromString("1887fcda-c227-400b-ad7c-541802a92d74");
+    private final UUID testUserUUID = UUID.fromString("1887fcda-c227-400b-ad7c-541802a92d74");
 
     private User testUser;
 
@@ -71,10 +66,9 @@ public class LoginServiceTest {
                         "User Exception expected");
 
         assertEquals(UserErrorCode.CODE_03.getMessage(),thrown.getError().getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST,thrown.getHttpStatus());
 
         verify(userRepository,times(1)).findAll();
-
-
     }
 
     @Test
@@ -103,6 +97,7 @@ public class LoginServiceTest {
                         "User Exception expected");
 
         assertEquals(UserErrorCode.CODE_03.getMessage(),thrown.getError().getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST,thrown.getHttpStatus());
 
         verify(userRepository,times(1)).findAll();
     }
@@ -120,6 +115,7 @@ public class LoginServiceTest {
                         "User Exception expected");
 
         assertEquals(UserErrorCode.CODE_03.getMessage(),thrown.getError().getMessage());
+        assertEquals(HttpStatus.BAD_REQUEST,thrown.getHttpStatus());
 
         verify(userRepository,times(1)).findAll();
 
