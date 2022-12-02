@@ -1,6 +1,6 @@
 package co.edu.icesi.VirtualStore.service;
 
-import co.edu.icesi.VirtualStore.model.BasketItem;
+import co.edu.icesi.VirtualStore.dto.CartItemDTO;
 import co.edu.icesi.VirtualStore.model.Item;
 import co.edu.icesi.VirtualStore.model.User;
 
@@ -15,7 +15,7 @@ public interface BasketService {
 
     void createBasket(User user);
 
-    List<BasketItem> getBasketItems(UUID userId);
+    List<CartItemDTO> getBasketItems(UUID userId);
 
     void clearBasket(UUID userId);
 

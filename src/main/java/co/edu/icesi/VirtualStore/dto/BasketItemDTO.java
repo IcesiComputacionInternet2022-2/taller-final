@@ -1,6 +1,5 @@
 package co.edu.icesi.VirtualStore.dto;
 
-import co.edu.icesi.VirtualStore.model.Basket;
 import co.edu.icesi.VirtualStore.model.Item;
 
 import javax.persistence.Id;

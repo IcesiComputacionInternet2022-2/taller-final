@@ -2,11 +2,12 @@ package co.edu.icesi.VirtualStore.dto;
 
 import co.edu.icesi.VirtualStore.model.Role;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 
 import java.util.UUID;
 
-@Getter
+@Data
 @AllArgsConstructor
 public class LoggedUserDTO {
 
@@ -21,5 +22,7 @@ public class LoggedUserDTO {
     private String phoneNumber;
 
     private Role role;
+
+    private CartDTO cart;
 
 }

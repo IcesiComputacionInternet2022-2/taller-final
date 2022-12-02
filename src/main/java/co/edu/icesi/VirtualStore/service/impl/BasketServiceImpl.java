@@ -1,33 +1,29 @@
 package co.edu.icesi.VirtualStore.service.impl;
 
-import co.edu.icesi.VirtualStore.model.Basket;
-import co.edu.icesi.VirtualStore.model.BasketItem;
+import co.edu.icesi.VirtualStore.dto.CartDTO;
+import co.edu.icesi.VirtualStore.dto.CartItemDTO;
 import co.edu.icesi.VirtualStore.model.Item;
 import co.edu.icesi.VirtualStore.model.User;
-import co.edu.icesi.VirtualStore.repository.BasketItemRepository;
-import co.edu.icesi.VirtualStore.repository.BasketRepository;
 import co.edu.icesi.VirtualStore.service.BasketService;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.UUID;
-import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 @AllArgsConstructor
-public class BasketServiceImpl implements BasketService {
-
+public class BasketServiceImpl{ //implements BasketService {
+    /*
     private final BasketRepository basketRepository;
 
     private final BasketItemRepository basketItemRepository;
 
     @Override
     public void addItemToBasket(UUID userId, Item item, int quantity) {
-        Basket basket = basketRepository.getBasket(userId);
+        CartDTO basket = basketRepository.getBasket(userId);
 
-        BasketItem basketItem = BasketItem.builder().basket(basket).item(item).quantity(quantity).build();
+        CartItemDTO basketItem = BasketItem.builder().basket(basket).item(item).quantity(quantity).build();
         basketItem.generateId();
 
         basketItemRepository.save(basketItem);
@@ -59,4 +55,6 @@ public class BasketServiceImpl implements BasketService {
         List<BasketItem> items = getBasketItems(userId);
         basketItemRepository.deleteAll(items);
     }
+
+     */
 }

@@ -11,5 +11,6 @@ public interface UserMapper {
     User fromDTO(UserDTO userDTO);
     UserDTO fromUser(User user);
     LoggedUserDTO loggedUserFromUser(User user);
-    User userFromLoggedUserDTO(LoggedUserDTO loggedUserDTO);
+
+    User fromLoggedUserDTO(LoggedUserDTO loggedUserDTO);
 }

@@ -12,7 +12,7 @@
 </head>
 <body>
     <script th:src="@{${'//cdn.jsdelivr.net/npm/sweetalert2@11'}}"></script>
-    <form action="#" th:action="@{/login}" th:object="${loginDTO}" th:method="get">
+    <form th:action="@{/login}" th:object="${loginDTO}" th:method="get">
         <div th:style="'position: absolute; left: 50%; top: 40%; transform: translate(-50%, -50%)'">
             <h1 th:align="center">Sign In</h1>
             <br>
@@ -27,7 +27,7 @@
             <br>
             <div th:align="center" th:class="'mb-3'">
                 <button th:type="submit" th:class="'btn btn-primary'">Login</button>
-                <button th:onclick="|window.location.href='/signUp'|" th:class="'btn btn-primary'">Sign up</button>
+                <button type="button" onclick="window.location.href='/signUp'" class="btn btn-primary">Sign Up</button>
             </div>
         </div>
     </form>
