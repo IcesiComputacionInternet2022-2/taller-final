@@ -1,0 +1,18 @@
+{
+  "status": "CREATED",
+  "orderItems": [
+    {
+      "quantity": 10,
+      "itemId": "8fee3317-0420-4de7-98e3-a5b7b2e75829"
+    },
+    {
+      "quantity": 5,
+      "itemId": "9fc55573-220c-4a48-996d-e1c884c6f0f1"
+    },
+    {
+      "quantity": 5,
+      "itemId": "aa2a5189-f47a-47d1-9195-9648b2dc51ee"
+    }
+  ],
+  "userId": "bde81b6c-d1e2-410e-9fb2-6797d5181190"
+}
