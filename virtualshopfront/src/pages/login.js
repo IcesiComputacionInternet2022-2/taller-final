@@ -23,7 +23,7 @@ export default class create extends React.Component{
         console.log(this.state.email)
 
         const {token} = response
-        if (!token) alert("Error " + response.code + "\n" + response.message)
+        if (!token) alert(response.code + "\n" + response.message)
     }
 
     handleChange = e=> {
