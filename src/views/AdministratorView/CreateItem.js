@@ -7,6 +7,27 @@ class CreateItem extends Component{
   async createItem(formData){
     formData.preventDefault();
     const data = new FormData(formData.target);
+    const itemData = {
+      name: data.get("name"),
+      description: data.get("description"),
+      price: data.get("price"),
+    };
+    console.log(itemData)
+    const response = await fetch("http://localhost:8080/rest/item", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json"
+      },
+      body: JSON.stringify(itemData)
+    });
+    const msg = await response.json();
+    if (response.status === 200) {
+      alert("Se ha creado el item exitosamente")
+      formData.target.reset();
+    } else {
+        alert(msg.message);
+    }
     console.log(data);
   }//End createItem
   

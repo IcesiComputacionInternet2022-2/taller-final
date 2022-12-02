@@ -43,7 +43,7 @@ class ModifyItem extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      items: ["asdadasdasdasdasd","Album", "Descripcion", 2900]
+      items: [["asdadasdasdasdasd","Album", "Descripcion", 2900]]
     };
   }
   handleClick(){}
@@ -79,19 +79,19 @@ class ModifyItem extends Component{
                       <table>
                         <tr>
                           <td><label>Codigo:</label></td>
-                          <td><label>{props.value[0]}</label></td>
+                          <td><label></label></td>
                         </tr>
                         <tr>
                           <td><label>Nombre:</label></td>
-                          <td><input type="text" value={props.value[1]}/></td>
+                          <td><input type="text"/></td>
                         </tr>
                         <tr>
                           <td><label>Descripcion:</label></td>
-                          <td><input type="text" value={props.value[2]}/></td>
+                          <td><input type="text" /></td>
                         </tr>
                         <tr>
                           <td><label>Price:</label></td>
-                          <td><input type="text" value={props.value[3]}/></td>
+                          <td><input type="text" /></td>
                         </tr>
                         <tr>
                           <td><input type="submit" value="modificar"/></td>
