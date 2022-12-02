@@ -85,7 +85,8 @@
             return new bootstrap.Tooltip(tooltipTriggerEl)
         }
     )
-
+</script>
+<script th:if="${role.equals('Admin')}">
     function modifyItem(itemId) {
         window.location.href = '/modifyItem?itemId=' + itemId;
     }

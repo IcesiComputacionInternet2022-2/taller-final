@@ -44,20 +44,6 @@ public class ItemsServiceTest {
     }
 
     @Test
-    void testAddItemRepeated(){
-
-        when(itemsRepository.findById(testItemUUID)).thenReturn(Optional.of(testItem));
-
-        RuntimeException thrown =
-                assertThrows(RuntimeException.class,
-                        () -> itemsService.addItem(testItem),
-                        "Runtime Exception expected");
-
-        verify(itemsRepository,times(0)).save(testItem);
-        assertEquals(ItemErrorCode.CODE_01.getMessage(),thrown.getMessage());
-    }
-
-    @Test
     void testGetItems(){
         when(itemsRepository.findAll()).thenReturn(Collections.singletonList(testItem));
         List<Item> items = itemsService.getItems();
