@@ -30,9 +30,10 @@ public class User {
 
     private String phoneNumber;
 
-    @ManyToOne
+    @OneToOne
     @JoinColumn(name = "role_id")
     private Role role;
+
 
     public String getLoginAttribute(){
         if(email!=null){

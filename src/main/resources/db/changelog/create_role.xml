@@ -4,7 +4,7 @@
 
     <!-- Refer to https://docs.liquibase.com/change-types/community/create-table.html -->
 
-    <changeSet id="33d4e5bc-7210-47c3-9617-c56ab7c0750d" author="1KVueltasAlCampo" failOnError="true">
+    <changeSet id="53d4e5bc-7210-47c3-9617-c56ab7c0750d" author="1KVueltasAlCampo" failOnError="true">
 
         <createTable tableName="user_role">
             <column name="role_id" type="UUID">

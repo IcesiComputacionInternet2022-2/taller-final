@@ -13,7 +13,8 @@ public enum VirtualShopErrorCode {
     CODE_005("Se debe tener al menos un telefono o un email registrado"),
     CODE_006("Formato invalido para el email"),
     CODE_007("El numero debe empezar por +57 y debe tener 10 digitos"),
-    CODE_008("Informacion de acceso incorrecta");
+    CODE_008("Informacion de acceso incorrecta"),
+    CODE_009("Producto no encontrado");
 
     private String message;
 

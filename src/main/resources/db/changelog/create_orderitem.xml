@@ -4,13 +4,16 @@
 
     <!-- Refer to https://docs.liquibase.com/change-types/community/create-table.html -->
 
-    <changeSet id="33d4e3bc-7210-47c3-9617-c56ab7c0750d" author="1KVueltasAlCampo" failOnError="true">
+    <changeSet id="34d4e3bc-7210-47c3-9617-c56ab7c0750d" author="1KVueltasAlCampo" failOnError="true">
 
-        <createTable tableName="orderItem">
-            <column name="orderItemId" type="UUID">
+        <createTable tableName="order_item">
+            <column name="order_item_id" type="UUID">
                 <constraints nullable="false" primaryKey="true" />
             </column>
             <column name="quantity" type="number" />
+            <column name="item_id" type="UUID" >
+            <constraints primaryKey="true" nullable="false" references="items(item_id)" foreignKeyName="fk-item"/>
+            </column>
         </createTable>
     </changeSet>
 </databaseChangeLog>
