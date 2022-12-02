@@ -10,6 +10,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+import java.util.stream.StreamSupport;
 
 @Service
 @RequiredArgsConstructor
@@ -32,6 +34,16 @@ public class OrderServiceImpl implements OrderService {
         if(orderRepository.findById(orderId).orElse(Order.builder().status("NOT EXISTS").build()).getStatus().equals("CREATED")) {
             orderRepository.deleteById(orderId);
         }
+    }
+
+    @Override
+    public List<Order> getOrders(){
+        return StreamSupport.stream(orderRepository.findAll().spliterator(),false).collect(Collectors.toList());
+    }
+
+    @Override
+    public void modifyStatus(UUID orderId, String status){
+        orderRepository.updateStatus(orderId, status);
     }
 
     private double calculateTotalPrice(CartDTO cartDTO) {

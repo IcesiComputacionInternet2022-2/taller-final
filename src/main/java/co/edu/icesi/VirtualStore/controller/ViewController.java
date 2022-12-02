@@ -47,9 +47,19 @@ public class ViewController {
     @GetMapping("/getUsers")
     public String getUsers(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
+        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Admin")) {
             model.addAttribute("users", userService.getUsers());
             return "getUsers";
+        }
+        return "redirect:/home";
+    }
+
+    @PostMapping("/makeAdmin")
+    public String makeAdmin(@RequestParam("id") UUID userId, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Admin")) {
+            userService.makeAdmin(userId);
+            return "redirect:/getUsers";
         }
         return "redirect:/home";
     }
@@ -89,14 +99,29 @@ public class ViewController {
     public String getOrders(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         LoggedUserDTO loggedUserDTO = ((LoggedUserDTO) session.getAttribute("LoggedUser"));
-        model.addAttribute("orders", orderService.getOrdersByUserId(loggedUserDTO.getId()));
+        model.addAttribute("role", session.getAttribute("role").toString());
+        if (loggedUserDTO.getRole().getName().equals("Admin"))
+            model.addAttribute("orders", orderService.getOrders());
+        else
+            model.addAttribute("orders", orderService.getOrdersByUserId(loggedUserDTO.getId()));
         return "order";
+    }
+
+    @PostMapping("/modifyStatus")
+    public String modifyStatus(@RequestParam("id") UUID orderId, @RequestParam("status") String status, Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Admin")) {
+            orderService.modifyStatus(orderId, status);
+            System.out.println(orderId + "    " + status);
+            return "redirect:/getOrders";
+        }
+        return "redirect:/home";
     }
 
     @GetMapping("/createNewItem")
     public String createItem(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
+        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Admin")) {
             model.addAttribute("itemDTO", new ItemDTO());
             return "createItem";
         }
@@ -106,8 +131,7 @@ public class ViewController {
     @PostMapping("/createItem")
     public String createItem(@Valid @ModelAttribute ItemDTO itemDTO, BindingResult errors, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
-
+        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Admin")) {
             if (hasBindingErrors(errors, model)) {
                 try {
                     itemsService.addItem(itemMapper.fromDTO(itemDTO));
@@ -125,7 +149,7 @@ public class ViewController {
     @GetMapping("/modifyItem")
     public String modifyItem(@RequestParam("itemId") UUID itemId, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
+        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Admin")) {
             model.addAttribute("itemId", itemId);
             return "modifyItem";
         }
@@ -135,7 +159,7 @@ public class ViewController {
     @PostMapping("/updateItem")
     public String modifyItem(@RequestParam(value = "itemID", required = false) UUID itemID, @RequestParam(value = "attribute", required = false) String attribute, @RequestParam(value = "newValue", required = false) String newValue, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
+        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Admin")) {
             try {
                 itemsService.modifyItem(itemID, attribute, newValue);
                 model.addAttribute("itemResponse", true);

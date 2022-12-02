@@ -23,4 +23,7 @@ public class ItemDTO {
     @NotNull
     @DecimalMin(value = "0", message = "The item price cannot be negative.")
     private double price;
+
+    @NotNull
+    private String urlImage;
 }

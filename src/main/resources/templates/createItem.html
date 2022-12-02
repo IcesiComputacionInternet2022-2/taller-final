@@ -44,6 +44,10 @@
                 <label for="inputPrice">Price:</label>
                 <input th:type="number" th:class="'form-control'" id="inputPrice" th:min="0" th:placeholder="'Enter a price'" th:field="*{price}"/>
               </div>
+              <div th:class="'form-group p-2'">
+                <label for="urlImage">Image URL:</label>
+                <input th:type="text" th:class="'form-control'" id="urlImage" th:placeholder="'Enter a image url'" th:field="*{urlImage}"/>
+              </div>
               <br>
               <div class="d-grid gap-2">
                 <button th:type="submit" th:class="'btn btn-primary'">Create item</button>

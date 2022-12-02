@@ -29,8 +29,6 @@ public class ItemsServiceImpl implements ItemsService {
 
     @Override
     public Item addItem(Item item) {
-        validateItemExists(item.getId());
-        item.setName(item.getName().toUpperCase());
         return itemsRepository.save(item);
     }
 
@@ -50,10 +48,5 @@ public class ItemsServiceImpl implements ItemsService {
                 itemsRepository.updateItemPrice(itemID, Double.parseDouble(newValue));
                 break;
         }
-    }
-
-    private void validateItemExists(UUID itemId) {
-        if(itemsRepository.findById(itemId).isPresent())
-            throw new RuntimeException(ItemErrorCode.CODE_01.getMessage());
     }
 }
