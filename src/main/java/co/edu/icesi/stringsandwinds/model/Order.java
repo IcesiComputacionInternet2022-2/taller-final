@@ -1,5 +1,6 @@
 package co.edu.icesi.stringsandwinds.model;
 
+import co.edu.icesi.stringsandwinds.constant.Status;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -10,6 +11,7 @@ import org.hibernate.annotations.TypeDef;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 
@@ -22,13 +24,15 @@ import java.util.UUID;
 public class Order  implements Serializable {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     @Type(type="org.hibernate.type.PostgresUUIDType")
     private UUID orderId;
-
-    @Id
+    
+    @Type(type="org.hibernate.type.PostgresUUIDType")
     private UUID costumerId;
 
     private float total;
 
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 }
