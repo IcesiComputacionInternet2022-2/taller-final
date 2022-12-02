@@ -44,6 +44,11 @@ public class UserServiceImpl implements UserService {
         return StreamSupport.stream(userRepository.findAll().spliterator(),false).collect(Collectors.toList());
     }
 
+    @Override
+    public void makeAdmin(UUID userId){
+        userRepository.updateUserToAdmin(userId);
+    }
+
     private void validateUserExists(String email, String phoneNumber) {
         if(userRepository.findByEmail(email).isPresent() || userRepository.findByPhoneNumber(phoneNumber).isPresent())
             throw new UserException(HttpStatus.BAD_REQUEST, new UserError(UserErrorCode.CODE_05, UserErrorCode.CODE_05.getMessage()));

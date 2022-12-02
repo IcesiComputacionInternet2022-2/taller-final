@@ -15,4 +15,6 @@ public interface UserService {
     User createUser(@RequestBody User user);
 
     List<User> getUsers();
+
+    void makeAdmin(UUID userId);
 }

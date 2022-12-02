@@ -12,5 +12,10 @@ public interface OrderService {
 
     List<Order> getOrdersByUserId(UUID userId);
 
+    List<Order> getOrders();
+
     void removeOrder(UUID orderId);
+
+    void modifyStatus(UUID orderId, String status);
+
 }

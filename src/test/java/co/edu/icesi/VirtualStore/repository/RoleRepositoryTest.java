@@ -20,6 +20,6 @@ public class RoleRepositoryTest {
     @Test
     public void testGetBasicUserRole() {
         Role basicRole = roleRepository.getBasicUserRole();
-        assertThat(basicRole.getName()).isEqualTo("Basic user");
+        assertThat(basicRole.getName()).isEqualTo("Basic");
     }
 }

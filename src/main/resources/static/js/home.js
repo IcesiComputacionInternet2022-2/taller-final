@@ -5,7 +5,6 @@ const expressions = {
 }
 
 for (let i = 1; i <= size.value; i++) {
-    console.log(size.value)
     const home = document.querySelector('.home-' + i)
     const quantity = document.querySelector('.quantity-' + i)
     const invalidQuantity = document.querySelector('.invalidQuantity-' + i)

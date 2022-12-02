@@ -31,7 +31,7 @@
         <h2 class="card-title main" th:text="'User #' + ${i.count}"></h2>
         <div class="menu__container">
           <div class="container">
-            <form>
+            <form th:action="@{/makeAdmin}" th:method="post">
               <div class="form-group p-2">
                 <label for="id" class="label">ID</label>
                 <input type="text" id="id" class="form-control id" aria-label="Username" th:name="id" th:value="${user.id}" readonly/>
@@ -51,6 +51,10 @@
               <div class="form-group p-2">
                 <label for="role" class="label">Role</label>
                 <input type="text" id="role" class="form-control role" aria-label="Username" th:name="role" th:value="${user.role.name}" readonly/>
+              </div>
+              <div class="d-grid gap-2" th:if="${!user.role.name.equals('Admin')}">
+                <br>
+                <button th:type="submit" th:class="'btn btn-primary'">Make Admin</button>
               </div>
             </form>
           </div>

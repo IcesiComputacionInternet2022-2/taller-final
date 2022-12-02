@@ -27,6 +27,7 @@ public class Item {
 
     private double price;
 
+    @Column(name = "url_image")
     private String urlImage;
 
     @PrePersist

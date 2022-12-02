@@ -31,22 +31,41 @@
         <h2 class="card-title main" th:text="'Order #' + ${i.count}"></h2>
         <div class="menu__container">
           <div class="container">
-            <form th:action="@{/removeOrder}" th:method="post">
+            <form th:action="@{${role.equals('Admin') ? '/modifyStatus' : '/removeOrder'}}" th:method="post">
               <div class="form-group p-2">
-                <label for="id" class="label">ID</label>
+                <label for="id" class="label">Order ID</label>
                 <input type="text" id="id" class="form-control id" aria-label="Username" th:name="id" th:value="${order.id}" readonly/>
               </div>
-              <div class="form-group p-2">
+              <div class="form-group p-2" th:if="${role.equals('Admin')}">
+                <label for="userId" class="label">User ID</label>
+                <input type="text" id="userId" class="form-control userId" aria-label="Username" th:name="userId" th:value="${order.user.id}" readonly/>
+              </div>
+              <div class="form-group p-2" th:if="${!role.equals('Admin') || order.status.equals('COMPLETED')}">
                 <label for="status" class="label">Status</label>
                 <input type="text" id="status" class="form-control status" aria-label="Username" th:name="status" th:value="${order.status}" readonly/>
+              </div>
+              <div class="form-group p-2" th:if="${role.equals('Admin') && !order.status.equals('COMPLETED')}">
+                <label for="status" class="label">Status</label>
+                <div class="input-group">
+                  <select class="form-select status" aria-label="Default select example" th:name="status" th:value="${order.status}" required>
+                    <option value="CREATED" th:if="${!order.status.equals('COMPLETED') && !order.status.equals('SENT')}">CREATED</option>
+                    <option value="SENT" th:if="${!order.status.equals('COMPLETED')}">SENT</option>
+                    <option value="COMPLETED">COMPLETED</option>
+                  </select>
+                </div>
+                <div class="errorsp invalidGender hidden"></div>
               </div>
               <div class="form-group p-2">
                 <label for="total" class="label">Total</label>
                 <input type="number" id="total" class="form-control total" aria-label="Username" th:name="total" th:value="${order.total}" readonly>
               </div>
-              <br>
-              <div class="d-grid gap-2" th:if="${!order.status.equals('COMPLETED') && !order.status.equals('SENT')}">
+              <div class="d-grid gap-2" th:if="${!order.status.equals('COMPLETED') && !order.status.equals('SENT') && !role.equals('Admin')}">
+                <br>
                 <button type="submit" th:class="'btn btn-danger'">Remove</button>
+              </div>
+              <div class="d-grid gap-2" th:if="${!order.status.equals('COMPLETED') && role.equals('Admin')}">
+                <br>
+                <button type="submit" th:class="'btn btn-success'">Modify Status</button>
               </div>
             </form>
           </div>

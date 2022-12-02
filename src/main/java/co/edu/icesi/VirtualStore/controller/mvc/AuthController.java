@@ -31,7 +31,7 @@ public class AuthController {
     private final UserMapper userMapper;
 
     @GetMapping("/logout")
-    public String signUp(HttpServletRequest request) {
+    public String logout(HttpServletRequest request) {
         HttpSession session = request.getSession();
         session.removeAttribute(HttpHeaders.AUTHORIZATION);
         session.removeAttribute("LoggedUser");
@@ -59,7 +59,7 @@ public class AuthController {
                 HttpSession session = request.getSession();
                 session.setAttribute(HttpHeaders.AUTHORIZATION, "Bearer " + tokenDTO.getToken());
                 session.setAttribute("LoggedUser", loggedUserDTO);
-                session.setAttribute("role", loggedUserDTO.getRole().getName().substring(0, 5));
+                session.setAttribute("role", loggedUserDTO.getRole().getName());
                 return "redirect:/home";
             } catch (UserException userException) {
                 model.addAttribute("loginResponse", false);
