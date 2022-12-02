@@ -8,6 +8,7 @@ import co.edu.icesi.VirtualStore.service.OrderService;
 import co.edu.icesi.VirtualStore.service.UserService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 import org.springframework.ui.Model;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -43,15 +44,17 @@ public class ViewControllerTest {
         viewController = new ViewController(userService, itemsService, userMapper, itemMapper, orderService);
     }
 
-    /*
     @Test
     public void testHome() {
-        when(httpServletRequest.getSession()).thenReturn(any());
+        when(httpServletRequest.getSession()).thenReturn(httpSession);
         when(model.addAttribute(any(), any())).thenReturn(model);
+
+        when(httpSession.getAttribute(ArgumentMatchers.any())).thenReturn("");
+
         assertEquals("home", viewController.home(model, httpServletRequest));
-        verify(model, times(2)).addAttribute(any());
-        verify(httpServletRequest, times(1)).getSession();
-        verify(itemMapper, times(1)).cartItemfromItem(any());
-        verify(itemsService, times(1)).getItems();
-    }*/
+
+       verify(model, times(2)).addAttribute(any(),any());
+       verify(httpServletRequest, times(1)).getSession();
+       verify(itemsService, times(1)).getItems();
+    }
 }
