@@ -28,10 +28,10 @@ public class ItemsServiceImpl implements ItemsService {
     }
 
     @Override
-    public void addItem(Item item) {
-        validateItemExists(item.getName());
+    public Item addItem(Item item) {
+        validateItemExists(item.getId());
         item.setName(item.getName().toUpperCase());
-        itemsRepository.save(item);
+        return itemsRepository.save(item);
     }
 
     @Override
@@ -52,10 +52,8 @@ public class ItemsServiceImpl implements ItemsService {
         }
     }
 
-    private void validateItemExists(String itemName) {
-        getItems().forEach(item -> {
-            if (item.getName().equalsIgnoreCase(itemName))
-                throw new RuntimeException(ItemErrorCode.CODE_01.getMessage());
-        });
+    private void validateItemExists(UUID itemId) {
+        if(itemsRepository.findById(itemId).isPresent())
+            throw new RuntimeException(ItemErrorCode.CODE_01.getMessage());
     }
 }

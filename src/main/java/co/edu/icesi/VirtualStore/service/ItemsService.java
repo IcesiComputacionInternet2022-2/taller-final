@@ -12,7 +12,7 @@ public interface ItemsService {
 
     Item getItemByID(@PathVariable UUID itemId);
 
-    void addItem(@RequestBody Item item);
+    Item addItem(@RequestBody Item item);
 
     void modifyItem(@RequestBody UUID itemID, String attribute, String newValue);
 }
