@@ -30,7 +30,7 @@
             <column name="role_id" value="44c953c9-daf4-45a9-bb41-288fce256c43"/>
         </insert>
         <insert tableName="users">
-            <column name="user_id" value="724f2a12-cad4-4e65-8846-9dd94df19366"/>
+            <column name="user_id" value="9db26d90-ff5c-477d-bc4b-95cae0363a71"/>
             <column name="email" value="juan.fernando@icesi.edu.co"/>
             <column name="password" value="Ju@nes1234"/>
             <column name="address" value="Calle 45 #34-21"/>

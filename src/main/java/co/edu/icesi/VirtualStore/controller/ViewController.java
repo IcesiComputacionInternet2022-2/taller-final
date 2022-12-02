@@ -30,7 +30,7 @@ public class ViewController {
     @GetMapping("/home")
     public String home(Model model, HttpServletRequest request){
         HttpSession session = request.getSession();
-        model.addAttribute("role", session.getAttribute("role")).toString();
+        model.addAttribute("role", session.getAttribute("role").toString());
         model.addAttribute("items", itemsService.getItems().stream().map(itemMapper::cartItemfromItem).collect(Collectors.toList()));
         return "home";
     }
