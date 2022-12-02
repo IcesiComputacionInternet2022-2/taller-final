@@ -1,17 +1,26 @@
 package co.edu.icesi.VirtualStore.service;
 
+import co.edu.icesi.VirtualStore.constant.ItemErrorCode;
+import co.edu.icesi.VirtualStore.constant.UserErrorCode;
 import co.edu.icesi.VirtualStore.dto.LoginDTO;
+import co.edu.icesi.VirtualStore.dto.TokenDTO;
+import co.edu.icesi.VirtualStore.error.exception.UserException;
 import co.edu.icesi.VirtualStore.model.User;
 import co.edu.icesi.VirtualStore.repository.UserRepository;
 import co.edu.icesi.VirtualStore.service.impl.LoginServiceImpl;
+import co.edu.icesi.VirtualStore.utils.JWTParser;
 import org.aspectj.lang.annotation.Before;
 import org.h2.engine.UserBuilder;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.mockito.ArgumentMatchers;
 
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.UUID;
 
-import static org.mockito.Mockito.mock;
+import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 public class LoginServiceTest {
 
@@ -38,25 +47,81 @@ public class LoginServiceTest {
 
     @Test
     void testLoginPhone(){
+        testLoginDTO.setEmailPhone(testUser.getPhoneNumber());
+        testLoginDTO.setPassword(testUser.getPassword());
 
+        when(userRepository.findAll()).thenReturn(Collections.singletonList(testUser));
 
+        TokenDTO tokenDTO = loginService.login(testLoginDTO);
 
+        verify(userRepository,times(1)).findAll();
+        assertNotNull(tokenDTO);
     }
 
     @Test
     void testLoginPhoneWrongPassword(){
+        testLoginDTO.setEmailPhone(testUser.getPhoneNumber());
+        testLoginDTO.setPassword(testUser.getPassword()+"46654");
 
+        when(userRepository.findAll()).thenReturn(Collections.singletonList(testUser));
+
+        UserException thrown =
+                assertThrows(UserException.class,
+                        () -> loginService.login(testLoginDTO),
+                        "User Exception expected");
+
+        assertEquals(UserErrorCode.CODE_03.getMessage(),thrown.getError().getMessage());
+
+        verify(userRepository,times(1)).findAll();
 
 
     }
 
     @Test
     void testLoginEmail(){
+        testLoginDTO.setEmailPhone(testUser.getEmail());
+        testLoginDTO.setPassword(testUser.getPassword());
 
+        when(userRepository.findAll()).thenReturn(Collections.singletonList(testUser));
+
+        TokenDTO tokenDTO = loginService.login(testLoginDTO);
+
+        verify(userRepository,times(1)).findAll();
+        assertNotNull(tokenDTO);
     }
 
     @Test
     void testLoginEmailWrongPassword(){
+        testLoginDTO.setEmailPhone(testUser.getPhoneNumber());
+        testLoginDTO.setPassword(testUser.getPassword()+"46654");
+
+        when(userRepository.findAll()).thenReturn(Collections.singletonList(testUser));
+
+        UserException thrown =
+                assertThrows(UserException.class,
+                        () -> loginService.login(testLoginDTO),
+                        "User Exception expected");
+
+        assertEquals(UserErrorCode.CODE_03.getMessage(),thrown.getError().getMessage());
+
+        verify(userRepository,times(1)).findAll();
+    }
+
+    @Test
+    void testLoginUserNotFound(){
+        testLoginDTO.setEmailPhone("test." + testUser.getEmail());
+        testLoginDTO.setPassword(testUser.getPassword());
+
+        when(userRepository.findAll()).thenReturn(Collections.emptyList());
+
+        UserException thrown =
+                assertThrows(UserException.class,
+                        () -> loginService.login(testLoginDTO),
+                        "User Exception expected");
+
+        assertEquals(UserErrorCode.CODE_03.getMessage(),thrown.getError().getMessage());
+
+        verify(userRepository,times(1)).findAll();
 
     }
 

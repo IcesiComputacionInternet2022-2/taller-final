@@ -24,7 +24,7 @@ public class LoginServiceImpl implements LoginService {
 
     @Override
     public TokenDTO login(LoginDTO loginDTO) {
-        User user = StreamSupport.stream(userRepository.findAll().spliterator(),false).filter(user1 -> user1.getEmail().equals(loginDTO.getEmailPhone())).findFirst().orElseThrow(() -> new UserException(HttpStatus.BAD_REQUEST, new UserError(UserErrorCode.CODE_03, UserErrorCode.CODE_03.getMessage())));
+        User user = StreamSupport.stream(userRepository.findAll().spliterator(),false).filter(user1 -> user1.getEmail().equals(loginDTO.getEmailPhone())|| user1.getPhoneNumber().equals((loginDTO.getEmailPhone()))).findFirst().orElseThrow(() -> new UserException(HttpStatus.BAD_REQUEST, new UserError(UserErrorCode.CODE_03, UserErrorCode.CODE_03.getMessage())));
         if (user.getPassword().equals(loginDTO.getPassword())) {
             Map<String, String> claims = new HashMap<>();
             claims.put("userId", user.getId().toString());
