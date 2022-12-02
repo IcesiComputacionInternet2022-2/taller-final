@@ -57,4 +57,56 @@ public class ViewControllerTest {
        verify(httpServletRequest, times(1)).getSession();
        verify(itemsService, times(1)).getItems();
     }
+
+    @Test
+    void testAddCartItem(){
+
+    }
+
+    @Test
+    void testGetUsers(){
+
+    }
+
+    @Test
+    void testGetCart(){
+
+    }
+
+
+    @Test
+    void testRemoveCartItem(){
+
+    }
+
+    @Test
+    void testCreateOrder(){
+
+    }
+
+    @Test
+    void testGetOrders(){
+
+    }
+
+    @Test
+    void testCreateItem1(){
+
+    }
+
+    @Test
+    void testCreateItem2(){
+
+    }
+
+    @Test
+    void testModifyItem1(){
+
+    }
+
+    @Test
+    void testModifyItem2(){
+
+    }
+
 }
