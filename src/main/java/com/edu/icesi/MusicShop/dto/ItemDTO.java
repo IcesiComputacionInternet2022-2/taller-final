@@ -15,6 +15,7 @@ import java.util.UUID;
 @NoArgsConstructor
 public class ItemDTO {
 
+    @NotNull(message = "El id no puede estar vacío")
     private UUID id;
 
     @NotNull(message = "El nombre del item no puede estar vacío")

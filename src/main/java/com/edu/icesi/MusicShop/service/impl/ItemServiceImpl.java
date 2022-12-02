@@ -17,7 +17,7 @@ import java.util.stream.StreamSupport;
 @Primary
 public class ItemServiceImpl implements ItemService {
 
-    private final ItemRepository itemRepository;
+    public final ItemRepository itemRepository;
 
     @Override
     public List<Item> getItems() {
@@ -31,7 +31,7 @@ public class ItemServiceImpl implements ItemService {
 
     @Override
     public Item createItem(Item itemDTO) {
-        return null;
+        return itemRepository.save(itemDTO);
     }
 
 }

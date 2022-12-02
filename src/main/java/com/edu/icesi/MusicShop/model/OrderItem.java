@@ -10,24 +10,27 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Data
-@Table(name = "`item`")
+@Table(name = "`order_item`")
 @Entity
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Item {
+public class OrderItem {
 
     @Id
     @Type(type="org.hibernate.type.PostgresUUIDType")
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private UUID id;
 
-    private String name;
+    @JoinColumn(name = "order_id", foreignKey = @ForeignKey(name = "order_fk"))
+    private UUID orderId;
 
-    private String description;
+    @JoinColumn(name = "item_id", foreignKey = @ForeignKey(name = "item_fk"))
+    private UUID itemId;
 
-    private double price;
+    private int quantity;
 
-    //@PrePersist
+    @PrePersist
     public void generateId() {
         this.id = UUID.randomUUID();
     }
