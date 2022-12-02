@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RequestMapping("/rest/order")
+@CrossOrigin(origins = "http://localhost:3000/")
 public interface OrderAPI {
 
     @GetMapping
