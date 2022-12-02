@@ -2,6 +2,7 @@ package co.edu.icesi.VirtualStore.controller;
 
 import co.edu.icesi.VirtualStore.dto.CartDTO;
 import co.edu.icesi.VirtualStore.dto.CartItemDTO;
+import co.edu.icesi.VirtualStore.dto.ItemDTO;
 import co.edu.icesi.VirtualStore.dto.LoggedUserDTO;
 import co.edu.icesi.VirtualStore.mapper.ItemMapper;
 import co.edu.icesi.VirtualStore.mapper.UserMapper;
@@ -15,10 +16,14 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.ArgumentMatchers;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -90,13 +95,13 @@ public class ViewControllerTest {
 
     @Test
     void testGetUsersAsAdmin(){
-        testLoggedUserDTO.setRole(Role.builder().name("Administrator User").build());
+        testLoggedUserDTO.setRole(Role.builder().name("Admin").build());
         when(httpSession.getAttribute("LoggedUser")).thenReturn(testLoggedUserDTO);
         when(userService.getUsers()).thenReturn(Collections.singletonList(userMapper.fromLoggedUserDTO(testLoggedUserDTO)));
 
         assertEquals("getUsers", viewController.getUsers(model, httpServletRequest));
         verify(httpServletRequest, times(1)).getSession();
-        verify(model,times(1)).addAttribute("users",any());
+        verify(model,times(1)).addAttribute(any(),any());
     }
 
     @Test
@@ -166,7 +171,9 @@ public class ViewControllerTest {
 
     @Test
     void testGetOrders(){
+        testLoggedUserDTO.setRole(Role.builder().name("Basic User").build());
         when(httpSession.getAttribute("LoggedUser")).thenReturn(testLoggedUserDTO);
+        when(httpSession.getAttribute("role")).thenReturn(testLoggedUserDTO.getRole());
         when(model.addAttribute(any(),any())).thenReturn(model);
         when(orderService.getOrdersByUserId(loggedUserId)).thenReturn(new ArrayList<>());
 
@@ -178,104 +185,44 @@ public class ViewControllerTest {
     @Test
     void testCreateItemViewAuthOK(){
 
-        testLoggedUserDTO.setRole(Role.builder().name("Administrator User").build());
+        testLoggedUserDTO.setRole(Role.builder().name("Admin").build());
         when(httpSession.getAttribute("LoggedUser")).thenReturn(testLoggedUserDTO);
+        when(model.addAttribute(any(),any())).thenReturn(model);
 
-        assertEquals("order", viewController.getOrders(model,httpServletRequest));
-
+        assertEquals("createItem", viewController.createItem(model,httpServletRequest));
         verify(httpServletRequest, times(1)).getSession();
     }
 
     @Test
     void testCreateItemViewAuthNotOK(){
 
-        assertEquals("order", viewController.getOrders(model,httpServletRequest));
+        testLoggedUserDTO.setRole(Role.builder().name("Basic").build());
+        when(httpSession.getAttribute("LoggedUser")).thenReturn(testLoggedUserDTO);
+        when(model.addAttribute(any(),any())).thenReturn(model);
 
-        verify(httpServletRequest, times(1)).getSession();
-    }
-
-        /*
-        @GetMapping("/createNewItem")
-    public String createItem(Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
-            model.addAttribute("itemDTO", new ItemDTO());
-            return "createItem";
-        }
-        return "redirect:/home";
-    }
-    */
-
-    @Test
-    void testCreateItem2(){
-
+        assertEquals("redirect:/home", viewController.createItem(model,httpServletRequest));
         verify(httpServletRequest, times(1)).getSession();
     }
 
     @Test
-    void testModifyItem1(){
+    void testModifyItemViewAuthOK(){
 
+        testLoggedUserDTO.setRole(Role.builder().name("Admin").build());
+        when(httpSession.getAttribute("LoggedUser")).thenReturn(testLoggedUserDTO);
+        when(model.addAttribute(any(),any())).thenReturn(model);
+
+        assertEquals("modifyItem", viewController.modifyItem(loggedUserId,model,httpServletRequest));
         verify(httpServletRequest, times(1)).getSession();
     }
 
     @Test
-    void testModifyItem2(){
+    void testModifyItemViewAuthNotOK(){
 
+        testLoggedUserDTO.setRole(Role.builder().name("Basic").build());
+        when(httpSession.getAttribute("LoggedUser")).thenReturn(testLoggedUserDTO);
+        when(model.addAttribute(any(),any())).thenReturn(model);
+
+        assertEquals("redirect:/home", viewController.modifyItem(loggedUserId,model,httpServletRequest));
         verify(httpServletRequest, times(1)).getSession();
     }
-
-    /*
-    @PostMapping("/createItem")
-    public String createItem(@Valid @ModelAttribute ItemDTO itemDTO, BindingResult errors, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
-
-            if (hasBindingErrors(errors, model)) {
-                try {
-                    itemsService.addItem(itemMapper.fromDTO(itemDTO));
-                    model.addAttribute("itemResponse", true);
-                } catch (RuntimeException runtimeException) {
-                    model.addAttribute("itemResponse", false);
-                    model.addAttribute("message", runtimeException.getMessage());
-                }
-            }
-            return "createItem";
-        }
-        return "redirect:/home";
-    }
-
-    @GetMapping("/modifyItem")
-    public String modifyItem(@RequestParam("itemId") UUID itemId, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
-            model.addAttribute("itemId", itemId);
-            return "modifyItem";
-        }
-        return "redirect:/home";
-    }
-
-    @PostMapping("/updateItem")
-    public String modifyItem(@RequestParam(value = "itemID", required = false) UUID itemID, @RequestParam(value = "attribute", required = false) String attribute, @RequestParam(value = "newValue", required = false) String newValue, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
-            try {
-                itemsService.modifyItem(itemID, attribute, newValue);
-                model.addAttribute("itemResponse", true);
-            } catch (RuntimeException runtimeException) {
-                model.addAttribute("itemResponse", false);
-                model.addAttribute("attribute", attribute);
-                model.addAttribute("message", runtimeException.getMessage());
-            }
-            return "modifyItem";
-        }
-        return "redirect:/home";
-    }
-
-
-
-
-
-
-     */
-
 }
