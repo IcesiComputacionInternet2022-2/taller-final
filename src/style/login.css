@@ -1,11 +1,16 @@
 .margin{
   padding-top: 5%;
-  padding-left: 40%;
+  padding-left: 38%;
 }
 #content{
   width: 20em;
 }
 
 .header{
-  padding-left: 36%;
+  padding-left: 11%;
+}
+
+.boton{
+  width: 20em;
+  padding-left: 30%;
 }

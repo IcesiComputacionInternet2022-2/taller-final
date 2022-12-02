@@ -1,4 +1,5 @@
 import React, {Component} from "react";
+import { Navigate } from "react-router-dom";
 import {
     BrowserRouter,
     Route,
@@ -12,13 +13,16 @@ import CreateItem from "./views/AdministratorView/CreateItem";
 import ModifyItem from "./views/AdministratorView/ModifyItem";
 import ModifyOrder from "./views/AdministratorView/ModifyOrder";
 import ListUsers from "./views/AdministratorView/ListUsers";
-import Login from "./login";
+import ListItems from "./views/UserView/ListItems";
+import RegisterUser from "./RegisterUser";
+import Login from "./Login";
 
 class Content extends Component{
-  componentDidMount(){
+  /*componentDidMount(){
     if(window.location.href == "http://localhost:3000/")
       window.location.href = "/view/admin/tools"; 
   }//End componentDidMount
+  */
   
   render(){
     return(
@@ -40,7 +44,10 @@ class Content extends Component{
             <Route exact path="/view/admin/tools/modify-item" element={<ModifyItem />} />
             <Route exact path="/view/admin/tools/modify-order" element={<ModifyOrder />} />
             <Route exact path="/view/admin/tools/list-users" element={<ListUsers />} />
+            <Route exact path="/view/register" element={<RegisterUser />} />
             <Route exact path="/view/login" element={<Login />} />
+            <Route exact path="/view/user/list-items" element={<ListItems />} />
+            <Route exact path='/' element={<Navigate to="/view/login"/>}/>
           </Routes>
         </div>
       </BrowserRouter>
