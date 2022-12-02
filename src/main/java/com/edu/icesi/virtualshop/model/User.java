@@ -19,7 +19,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class User {
     @Id
-    @Type(type="org.hibernate.type.UUIDCharType")
+    @Type(type = "org.hibernate.type.PostgresUUIDType")
     private UUID user_id;
 
     private String email;
@@ -50,6 +50,7 @@ public class User {
     public void generateId(){
         this.user_id = UUID.randomUUID();
     }
+
 
 
 }
