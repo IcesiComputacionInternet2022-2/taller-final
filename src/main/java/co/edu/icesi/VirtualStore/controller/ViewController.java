@@ -35,14 +35,6 @@ public class ViewController {
         return "home";
     }
 
-    @GetMapping("/admin")
-    public String admin(HttpServletRequest request){
-        HttpSession session = request.getSession();
-        if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user"))
-            return "admin";
-        return "redirect:/home";
-    }
-
     @PostMapping("/addCartItem")
     public String addCartItem(CartItemDTO item, HttpServletRequest request){
         HttpSession session = request.getSession();
@@ -131,9 +123,10 @@ public class ViewController {
     }
 
     @GetMapping("/modifyItem")
-    public String modifyItem(HttpServletRequest request) {
+    public String modifyItem(@RequestParam("itemId") UUID itemId, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         if (((LoggedUserDTO) session.getAttribute("LoggedUser")).getRole().getName().equals("Administrator user")) {
+            model.addAttribute("itemId", itemId);
             return "modifyItem";
         }
         return "redirect:/home";
