@@ -29,7 +29,7 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     public void removeOrder(UUID orderId) {
-        if(orderRepository.findById(orderId).orElse(Order.builder().build()).getStatus().equals("CREATED")) {
+        if(orderRepository.findById(orderId).orElse(Order.builder().status("NOT EXISTS").build()).getStatus().equals("CREATED")) {
             orderRepository.deleteById(orderId);
         }
     }
