@@ -13,7 +13,6 @@ import javax.sql.DataSource;
 @Configuration
 public class InitialDataConfig {
 
-
     @Autowired
     public void configureInitialData(DataSource dataSource, SpringLiquibase liquibase) {
         ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();

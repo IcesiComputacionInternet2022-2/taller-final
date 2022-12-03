@@ -33,8 +33,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = { "spring.datasource.url=jdbc:h2:mem:testdb" }
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles("test")
 public class ItemServiceIntegrationTest {
@@ -47,7 +46,7 @@ public class ItemServiceIntegrationTest {
     private ObjectMapper objectMapper;
 
     @BeforeEach
-    private void init() {
+    public void init() {
         objectMapper = new ObjectMapper();
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
