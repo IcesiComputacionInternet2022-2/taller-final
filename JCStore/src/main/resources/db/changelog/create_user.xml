@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet id="33d4e9bc-7210-47c3-9617-c56ab7c0750d" author="juan.zorrilla" failOnError="true">
+
+        <createTable tableName="users">
+            <column name="id" type="UUID">
+                <constraints primaryKey="true" nullable="false"/>
+            </column>
+            <column name="name" type="varchar(255)"/>
+            <column name="email" type="varchar(255)"/>
+            <column name="password" type="varchar(255)"/>
+            <column name="address" type="varchar(255)"/>
+            <column name="phone" type="varchar(255)"/>
+            <column name="role_id" type="UUID">
+                <constraints nullable="false" references="USER_ROLE(role_id)" foreignKeyName="fk-user-role"/>
+            </column>
+        </createTable>
+    </changeSet>
+</databaseChangeLog>

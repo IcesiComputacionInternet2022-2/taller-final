@@ -1,0 +1,2 @@
+INSERT INTO ITEM(item_id, name, description, price, url)
+VALUES('2b733549-d2cc-40f0-b7f3-9bfa9f3c1b89', 'Monitor 24 pulgadas', 'Monitor LG OLED de 24 pulgadas', 10000, 'https://www.img2link.com/images/2022/12/02/62c7b1836f078da0f211f11a3d68eee8.jpg');
