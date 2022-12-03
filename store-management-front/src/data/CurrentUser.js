@@ -1,0 +1,1 @@
+export const currentUser = { id: '', name: '', email: '', password: '', address: '', roleId: '', roleName: '' };
