@@ -1,4 +1,7 @@
 import React from 'react';
+import {unsignedPost} from "../utils/com";
+import {URLSessions} from "../utils/url";
+import {saveCookie} from "../utils/ses";
 
 export default class create extends React.Component{
 
@@ -10,16 +13,16 @@ export default class create extends React.Component{
             phoneNumber: "",
             address:"",
             password:"",
-            role:"client"
         }
     }
 
     handleSubmit = async e=>{
         e.preventDefault()
             let response = await unsignedPost(URLSessions.SIGNUP, this.state);
-            const {code} = response
+            const {code,email,phoneNumber} = response
             if (code) alert(response.code + "\n" + response.message)
-            else 
+            else if (email) alert("created user with email "+email)
+            else if(phoneNumber) alert("created user with phone number "+phoneNumber)
 
     }
 
@@ -55,9 +58,9 @@ export default class create extends React.Component{
                 <label htmlFor="email">Email</label>
                 <input value={this.email} onChange={this.handleChange} type="email" placeholder="youremail@gmail.com" id="email" name="email" />
                 <label htmlFor="phoneNumber">Phone Number</label>
-                <input value={this.phoneNumber} onChange={this.handleChange} type="phoneNumber" placeholder="youremail@gmail.com" id="phoneNumber" name="phoneNumber" />
+                <input value={this.phoneNumber} onChange={this.handleChange} type="phoneNumber" placeholder="+573166670887" id="phoneNumber" name="phoneNumber" />
                 <label htmlFor="address">Address</label>
-                <input value={this.address} onChange={this.handleChange} type="address" placeholder="youremail@gmail.com" id="address" name="address" />
+                <input value={this.address} onChange={this.handleChange} type="address" placeholder="Calle 6ta..." id="address" name="address" />
                 <label htmlFor="password">Password</label>
                 <input value={this.password} onChange={this.handleChange} type="password" placeholder="********" id="password" name="password" />
                 <button type="submit" >Register</button>
