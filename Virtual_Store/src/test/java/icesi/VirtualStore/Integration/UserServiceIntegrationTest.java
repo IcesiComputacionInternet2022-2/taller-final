@@ -7,6 +7,7 @@ import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.mapstruct.control.MappingControl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.core.io.ClassPathResource;
@@ -47,7 +48,7 @@ public class UserServiceIntegrationTest {
 
     private ObjectMapper objectMapper;
 
-    private static final String USER_UUID = "5631cbd3-cf53-415f-bd06-4e995ee3c322";
+    private static final String USER_UUID = "44991aa0-6568-401c-b032-6b436a7812dd";
 
 
     @BeforeEach
@@ -74,18 +75,15 @@ public class UserServiceIntegrationTest {
     @Test
     @SneakyThrows
     public void getUserSuccessfully() {
-
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/users/" + USER_UUID)
-                        .contentType(MediaType.APPLICATION_JSON))
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/users/" + USER_UUID))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        UserDTO userResult = objectMapper.readValue(result.getResponse().getContentAsString(), UserDTO.class);
+        UserCreateDTO userResult = objectMapper.readValue(result.getResponse().getContentAsString(), UserCreateDTO.class);
 
-        assertThat(userResult, hasProperty("firstName", is("Juan")));
+        assertThat(userResult, hasProperty("password", is("askhda123")));
 
     }
-
 
     @SneakyThrows
     private UserCreateDTO baseUser(){
