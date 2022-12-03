@@ -1,6 +1,7 @@
 package icesi.VirtualStore.Integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import icesi.VirtualStore.constant.OrderStatus;
 import icesi.VirtualStore.dto.OrderDTO;
 import icesi.VirtualStore.dto.OrderUpdateDTO;
 import lombok.SneakyThrows;
@@ -82,7 +83,7 @@ public class OrderServiceIntegrationTest {
                 .andReturn();
 
         OrderDTO orderResult = objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class);
-        assertThat(orderResult, hasProperty("status", is("CREATED")));
+        assertThat(orderResult, hasProperty("status", is(OrderStatus.STATUS_01)));
 
     }
 
