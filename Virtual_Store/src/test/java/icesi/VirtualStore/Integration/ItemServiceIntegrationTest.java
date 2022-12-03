@@ -57,8 +57,8 @@ public class ItemServiceIntegrationTest {
         ItemTypeDTO itemTypeDTO = createItemDTO();
         String body = objectMapper.writeValueAsString(itemTypeDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isCreated())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
@@ -73,8 +73,8 @@ public class ItemServiceIntegrationTest {
         itemTypeDTO.setName("a");
         String body = objectMapper.writeValueAsString(itemTypeDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isBadRequest())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
@@ -88,8 +88,8 @@ public class ItemServiceIntegrationTest {
         itemTypeDTO.setDescription("a");
         String body = objectMapper.writeValueAsString(itemTypeDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isBadRequest())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
@@ -102,8 +102,8 @@ public class ItemServiceIntegrationTest {
         ItemTypeDTO itemTypeDTO = createItemDTO();
         String body = objectMapper.writeValueAsString(itemTypeDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isCreated())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
@@ -112,8 +112,8 @@ public class ItemServiceIntegrationTest {
         itemTypeDTO.setName("New Name");
         body = objectMapper.writeValueAsString(itemTypeDTO);
         result = mockMvc.perform(MockMvcRequestBuilders.put("/items/" + responseDTO.getItemTypeId())
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isOk())
                 .andReturn();
         response = result.getResponse().getContentAsString();
@@ -127,16 +127,16 @@ public class ItemServiceIntegrationTest {
         ItemTypeDTO itemTypeDTO = createItemDTO();
         String body = objectMapper.writeValueAsString(itemTypeDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isCreated())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
         ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
         assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
         result = mockMvc.perform(MockMvcRequestBuilders.post("/items/" + responseDTO.getItemTypeId() + "/cart")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isOk())
                 .andReturn();
         response = result.getResponse().getContentAsString();
@@ -151,8 +151,8 @@ public class ItemServiceIntegrationTest {
         itemTypeDTO.setPrice(-1);
         String body = objectMapper.writeValueAsString(itemTypeDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isBadRequest())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
@@ -165,14 +165,14 @@ public class ItemServiceIntegrationTest {
         ItemTypeDTO itemTypeDTO = createItemDTO();
         String body = objectMapper.writeValueAsString(itemTypeDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
-                .contentType(MediaType.APPLICATION_JSON)
-                .content(body))
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
                 .andExpect(status().isCreated())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
         ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
         MvcResult getResult = mockMvc.perform(MockMvcRequestBuilders.get("/items/" + responseDTO.getItemTypeId())
-                .contentType(MediaType.APPLICATION_JSON))
+                        .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
         String getResponse = getResult.getResponse().getContentAsString();
@@ -182,9 +182,10 @@ public class ItemServiceIntegrationTest {
 
     @SneakyThrows
     private ItemTypeDTO createItemDTO() {
-    String body = parseResourceToString("JsonFiles/createItem.json");
-    return objectMapper.readValue(body, ItemTypeDTO.class);
+        String body = parseResourceToString("JsonFiles/createItem.json");
+        return objectMapper.readValue(body, ItemTypeDTO.class);
     }
+
     @SneakyThrows
     private String parseResourceToString(String classPath) {
         Resource resource = new ClassPathResource(classPath);

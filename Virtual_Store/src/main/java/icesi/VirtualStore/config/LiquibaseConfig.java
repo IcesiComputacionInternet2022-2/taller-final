@@ -20,20 +20,20 @@ public class LiquibaseConfig {
         return liquibase;
     }
 
-    private ResourceDatabasePopulator resourceDatabasePopulator() {
+//    private ResourceDatabasePopulator resourceDatabasePopulator() {
+//
+//        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
+//        resourceDatabasePopulator.addScript(new ClassPathResource("db/data.sql"));
+//
+//        return resourceDatabasePopulator;
+//    }
 
-        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
-        resourceDatabasePopulator.addScript(new ClassPathResource("db/data.sql"));
-
-        return resourceDatabasePopulator;
-    }
-
-    @Bean
-    public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
-        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
-        dataSourceInitializer.setDataSource(dataSource);
-        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator());
-        return dataSourceInitializer;
-    }
+//    @Bean
+//    public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
+//        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
+//        dataSourceInitializer.setDataSource(dataSource);
+//        dataSourceInitializer.setDatabasePopulator(resourceDatabasePopulator());
+//        return dataSourceInitializer;
+//    }
 
 }

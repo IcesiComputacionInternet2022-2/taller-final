@@ -1,4 +1,4 @@
-package icesi.VirtualStore.controllerIntegrationTest;
+package icesi.VirtualStore.controllerUnitTest;
 
-public class ItemControllerIntegrationTest {
+public class ItemControllerUnitTest {
 }
