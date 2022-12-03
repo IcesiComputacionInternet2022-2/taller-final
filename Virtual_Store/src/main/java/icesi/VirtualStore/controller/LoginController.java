@@ -16,12 +16,12 @@ import org.springframework.web.bind.annotation.RestController;
 
 @AllArgsConstructor
 @RestController
+@CrossOrigin(origins = "*")
 public class LoginController implements LoginAPI {
 
     private final LoginService loginService;
 
 
-    @CrossOrigin(origins = "*")
     @Override
     public TokenDTO login(LoginDTO loginDTO) {
         String s = loginDTO.getUsername();
