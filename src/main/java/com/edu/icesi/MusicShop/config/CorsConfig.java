@@ -1,4 +1,4 @@
-package com.icesi.edu.zoo.config;
+package com.edu.icesi.MusicShop.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
