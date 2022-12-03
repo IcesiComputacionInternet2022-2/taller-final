@@ -39,7 +39,9 @@ public class UserServiceImpl implements UserService {
     public User createUser(User userDTO, String roleName) {
         Role role = roleRepository.findByName(roleName).orElseThrow(()-> new VirtualStoreException(HttpStatus.NOT_FOUND, new VirtualStoreError(VirtualStoreErrorCode.CODE_L_04, VirtualStoreErrorCode.CODE_L_04.getMessage())));
         userDTO.setRole(role);
-        List<Permission> permissions = StreamSupport.stream(permissionRepository.findAll().spliterator(), false).collect(Collectors.toList());
+        if(userRepository.existsByEmailOrPhoneNumber(userDTO.getEmail(), userDTO.getPhoneNumber())){
+            throw new VirtualStoreException(HttpStatus.CONFLICT, new VirtualStoreError(VirtualStoreErrorCode.CODE_U_05, VirtualStoreErrorCode.CODE_U_05.getMessage()));
+        }
         return userRepository.save(userDTO);
     }
 

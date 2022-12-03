@@ -18,7 +18,8 @@ public enum VirtualStoreErrorCode {
     CODE_I_02("Not enough items available"),
     CODE_U_02("Either email or phone number must be present"),
     CODE_U_03("The email invalid"),
-    CODE_U_04("The phone number invalid");
+    CODE_U_04("The phone number invalid"),
+    CODE_U_05("User Email or PhoneNumber is already in use");
 
     private final String message;
 }

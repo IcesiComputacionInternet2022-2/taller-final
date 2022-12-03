@@ -1,5 +1,6 @@
 package icesi.VirtualStore.dto;
 
+import icesi.VirtualStore.validation.CustomAnnotations.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +17,10 @@ public class UserCreateDTO {
 
     private UUID id;
 
+    @ValidEmail
     private String email;
 
+    @ValidPhoneNumber
     private String phoneNumber;
 
 

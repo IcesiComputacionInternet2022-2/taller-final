@@ -15,6 +15,9 @@ public interface UserRepository extends CrudRepository<User, UUID> {
 
     Optional<User> findByPhoneNumber(String phoneNumber);
 
-    Optional<User> findByEmailOrPhoneNumber(String email, String phoneNumber);
+    boolean existsByEmailOrPhoneNumber(String email, String phoneNumber);
+
+
+
 
 }

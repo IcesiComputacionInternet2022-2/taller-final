@@ -1,6 +1,7 @@
 package icesi.VirtualStore.Integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import icesi.VirtualStore.dto.UserCreateDTO;
 import icesi.VirtualStore.dto.UserDTO;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,7 +35,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ContextConfiguration
 @SpringBootTest(
         webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = { "spring.datasource.url=jdbc:h2:mem:testdb" }
+        properties = { "spring.datasource.url=jdbc:postgresql://localhost:49153/test" }
 )
 @ActiveProfiles("test")
 public class UserServiceIntegrationTest {
@@ -58,17 +59,15 @@ public class UserServiceIntegrationTest {
     @Test
     @SneakyThrows
     public void createUserSuccessfully() {
-        UserDTO baseUser = baseUser();
-        baseUser.setEmail("invalidEmail@invalid");
+        UserCreateDTO baseUser = baseUser();
         String body = objectMapper.writeValueAsString(baseUser);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/users")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body)).andExpect(status().isOk())
                 .andReturn();
 
-        UserDTO userResult = objectMapper.readValue(result.getResponse().getContentAsString(), UserDTO.class);
-        //   UserError userError = objectMapper.readValue(result.getResponse().getContentAsString(), UserError.class);
-        assertThat(userResult, hasProperty("firstName", is("Juan")));
+        UserCreateDTO userResult = objectMapper.readValue(result.getResponse().getContentAsString(), UserCreateDTO.class);
+        assertThat(userResult, hasProperty("email", is(baseUser.getEmail())));
 
     }
 
@@ -89,9 +88,9 @@ public class UserServiceIntegrationTest {
 
 
     @SneakyThrows
-    private UserDTO baseUser(){
+    private UserCreateDTO baseUser(){
         String body = parseResourceToString("JsonFiles/createUser.json");
-        return objectMapper.readValue(body, UserDTO.class);
+        return objectMapper.readValue(body, UserCreateDTO.class);
     }
     @SneakyThrows
     private String parseResourceToString(String classPath) {
