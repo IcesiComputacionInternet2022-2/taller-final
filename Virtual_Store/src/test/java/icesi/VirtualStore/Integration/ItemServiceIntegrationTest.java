@@ -59,7 +59,7 @@ public class ItemServiceIntegrationTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
         ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
