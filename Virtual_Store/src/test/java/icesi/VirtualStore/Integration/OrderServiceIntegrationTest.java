@@ -2,8 +2,10 @@ package icesi.VirtualStore.Integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import icesi.VirtualStore.constant.OrderStatus;
+import icesi.VirtualStore.constant.VirtualStoreErrorCode;
 import icesi.VirtualStore.dto.OrderDTO;
 import icesi.VirtualStore.dto.OrderUpdateDTO;
+import icesi.VirtualStore.error.exception.VirtualStoreError;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -37,8 +39,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = { "spring.datasource.url=jdbc:postgresql://localhost:49153/test" }
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles("test")
 public class OrderServiceIntegrationTest {
@@ -51,18 +52,18 @@ public class OrderServiceIntegrationTest {
 
     private ObjectMapper objectMapper;
 
-    private static final String ORDER_UUID = "5631cbd3-cf53-415f-bd06-4e995ee3c322";
+    private static final String ORDER_UUID = "ccc7ff73-1989-413a-ab52-9bec7a049e99";
 
     @BeforeEach
-    private void init() {
+    public void init() {
         objectMapper = new ObjectMapper();
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
     @SneakyThrows
-    public void getOrdersSuccessfully()  {
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/orders/"+ORDER_UUID)
+    public void getOrdersSuccessfully() {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/orders")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
@@ -74,49 +75,85 @@ public class OrderServiceIntegrationTest {
 
     @Test
     @SneakyThrows
-    public void createOrderSuccessfully()  {
-        OrderDTO baseOrderDTO =  baseOrder();
-        String body = objectMapper.writeValueAsString(baseOrderDTO);
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/orders/")
-                        .contentType(MediaType.APPLICATION_JSON)
-                         .content(body)).andExpect(status().isOk())
-                .andReturn();
-
-        OrderDTO orderResult = objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class);
-        assertThat(orderResult, hasProperty("status", is(OrderStatus.STATUS_01)));
-
-    }
-
-    @Test
-    @SneakyThrows
-    public void updateOrderSuccessfully()  {
-        OrderUpdateDTO updateOrder =  updateOrder();
-        String body = objectMapper.writeValueAsString(updateOrder);
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.put("/orders/"+ORDER_UUID)
-                        .contentType(MediaType.APPLICATION_JSON)
-                         .content(body)).andExpect(status().isOk())
-                .andReturn();
-
-        OrderDTO orderResult = objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class);
-        assertThat(orderResult, hasProperty("status", is("COMPLETED")));
-
-    }
-    @Test
-    @SneakyThrows
-    public void deleteOrderSuccessfully()  {
-        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.delete("/orders/"+ORDER_UUID)
+    public void getOrderSuccessfully() {
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/orders/" + ORDER_UUID)
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
                 .andReturn();
 
-        assertThrows(EmptyResultDataAccessException.class, () ->  objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class));
+        OrderDTO orderResult = objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class);
+
+        assertThat(orderResult, hasProperty("status", is(OrderStatus.CREATED)));
+    }
+
+    @Test
+    @SneakyThrows
+    public void createOrderSuccessfully() {
+        OrderDTO baseOrderDTO = baseOrder();
+        String body = objectMapper.writeValueAsString(baseOrderDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/orders")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body)).andExpect(status().isOk())
+                .andReturn();
+
+        OrderDTO orderResult = objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class);
+        assertThat(orderResult, hasProperty("status", is(OrderStatus.CREATED)));
 
     }
+
+    @Test
     @SneakyThrows
-    private OrderDTO baseOrder(){
+    public void updateOrderSuccessfully() {
+        OrderUpdateDTO updateOrder = updateOrder();
+        String body = objectMapper.writeValueAsString(updateOrder);
+        mockMvc.perform(MockMvcRequestBuilders.put("/orders")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body)).andExpect(status().isOk())
+                .andReturn();
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/orders/" + ORDER_UUID)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        OrderDTO orderResult = objectMapper.readValue(result.getResponse().getContentAsString(), OrderDTO.class);
+
+        assertThat(orderResult, hasProperty("status", is(OrderStatus.COMPLETED)));
+    }
+
+    @Test
+    @SneakyThrows
+    public void deleteOrderSuccessfully() {
+        mockMvc.perform(MockMvcRequestBuilders.delete("/orders/" + ORDER_UUID)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/orders/" + ORDER_UUID)
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isNotFound())
+                .andReturn();
+
+        String response = result.getResponse().getContentAsString();
+
+        VirtualStoreError err = objectMapper.readValue(response, VirtualStoreError.class);
+        assertThat(err, hasProperty("message", is(VirtualStoreErrorCode.CODE_O_01.getMessage())));
+        assertThat(err, hasProperty("code", is(VirtualStoreErrorCode.CODE_O_01)));
+    }
+
+    @SneakyThrows
+    private OrderUpdateDTO updateOrder() {
+        String body = parseResourceToString("JsonFiles/updateOrder.json");
+        return objectMapper.readValue(body, OrderUpdateDTO.class);
+
+    }
+
+    @SneakyThrows
+    private OrderDTO baseOrder() {
         String body = parseResourceToString("JsonFiles/createOrder.json");
         return objectMapper.readValue(body, OrderDTO.class);
     }
+
     @SneakyThrows
     private String parseResourceToString(String classPath) {
         Resource resource = new ClassPathResource(classPath);
@@ -124,12 +161,5 @@ public class OrderServiceIntegrationTest {
             return FileCopyUtils.copyToString(reader);
         }
     }
-
-    @SneakyThrows
-    private OrderUpdateDTO updateOrder(){
-        String body = parseResourceToString("JsonFiles/updateOrder.json");
-        return objectMapper.readValue(body, OrderUpdateDTO.class);
-    }
-
 
 }

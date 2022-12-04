@@ -1,7 +1,10 @@
 package icesi.VirtualStore.Integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import icesi.VirtualStore.constant.VirtualStoreErrorCode;
 import icesi.VirtualStore.dto.LoginDTO;
+import icesi.VirtualStore.dto.TokenDTO;
+import icesi.VirtualStore.error.exception.VirtualStoreError;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,8 +36,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = { "spring.datasource.url=jdbc:postgresql://localhost:49153/test" }
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles("test")
 public class LoginServiceIntegrationTest {
@@ -47,22 +49,41 @@ public class LoginServiceIntegrationTest {
     private WebApplicationContext wac;
 
     @BeforeEach
-    private void init() {
+    public void init() {
         objectMapper = new ObjectMapper();
         mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
 
     @Test
     @SneakyThrows
-    public void testLogin() {
+    public void testLoginSuccessfully() {
         LoginDTO loginDTO = baseLogin();
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/login")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(loginDTO)))
                 .andExpect(status().isOk())
                 .andReturn();
-        LoginDTO loginResponse = objectMapper.readValue(result.getResponse().getContentAsString(), LoginDTO.class);
-        assertThat(loginResponse,hasProperty("pasword",is("askhda123")));
+        TokenDTO tokenDTOResponse = objectMapper.readValue(result.getResponse().getContentAsString(), TokenDTO.class);
+        assertThat(tokenDTOResponse,hasProperty("token"));
+        assertThat(tokenDTOResponse,hasProperty("userId"));
+        assertThat(tokenDTOResponse,hasProperty("role", is("admin")));
+    }
+
+    @Test
+    @SneakyThrows
+    public void testLoginUnsuccessfully() {
+        LoginDTO loginDTO = baseLogin();
+        loginDTO.setUsername("new login username");
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/login")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(loginDTO)))
+                .andExpect(status().isBadRequest())
+                .andReturn();
+        String response = result.getResponse().getContentAsString();
+
+        VirtualStoreError err = objectMapper.readValue(response, VirtualStoreError.class);
+        assertThat(err, hasProperty("message", is(VirtualStoreErrorCode.CODE_L_01.getMessage())));
+        assertThat(err, hasProperty("code", is(VirtualStoreErrorCode.CODE_L_01)));
     }
 
     @SneakyThrows

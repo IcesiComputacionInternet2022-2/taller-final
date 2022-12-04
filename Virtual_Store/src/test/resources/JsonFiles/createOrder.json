@@ -1,9 +1,9 @@
 {
   "orderId": "5631cbd3-cf53-415f-bd06-4e995ee3c322",
-  "status": "STATUS_01",
+  "status" : "CREATED",
   "orderItems": [
     {
-      "quantity": 2,
+      "quantity": 1,
       "itemId": "ccc7ff73-1989-413a-ab52-9bec7a049e98"
     }
   ],

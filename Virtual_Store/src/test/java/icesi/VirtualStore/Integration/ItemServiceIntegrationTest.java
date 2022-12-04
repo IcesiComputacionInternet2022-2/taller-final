@@ -25,11 +25,12 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
@@ -61,7 +62,7 @@ public class ItemServiceIntegrationTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
         ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
@@ -84,7 +85,7 @@ public class ItemServiceIntegrationTest {
 
         VirtualStoreError err = objectMapper.readValue(response, VirtualStoreError.class);
         assertThat(err, hasProperty("message", is("The name must have between 3 and 50 characters")));
-        assertThat(err, hasProperty("code", is(VirtualStoreErrorCode.CODE_U_03)));
+        assertThat(err, hasProperty("code", is(VirtualStoreErrorCode.CODE_01)));
     }
 
     @Test
@@ -99,7 +100,10 @@ public class ItemServiceIntegrationTest {
                 .andExpect(status().isBadRequest())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
-        assertThat(response, is("Description must be between 2 and 50 characters"));
+
+        VirtualStoreError err = objectMapper.readValue(response, VirtualStoreError.class);
+        assertThat(err, hasProperty("message", is("The description must have between 10 and 100 characters")));
+        assertThat(err, hasProperty("code", is(VirtualStoreErrorCode.CODE_01)));
     }
 
     @Test
@@ -110,44 +114,44 @@ public class ItemServiceIntegrationTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
         ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
         assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
         itemTypeDTO.setName("New Name");
         body = objectMapper.writeValueAsString(itemTypeDTO);
+
         result = mockMvc.perform(MockMvcRequestBuilders.put("/items/" + responseDTO.getItemTypeId())
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
                 .andExpect(status().isOk())
                 .andReturn();
         response = result.getResponse().getContentAsString();
-        responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
-        assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
+        assertTrue(Boolean.parseBoolean(response));
     }
 
     @Test
     @SneakyThrows
-    public void addItemToCartSuccessfully() {
+    public void addItemToStockSuccessfully() {
         ItemTypeDTO itemTypeDTO = createItemDTO();
         String body = objectMapper.writeValueAsString(itemTypeDTO);
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
         ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
         assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
-        result = mockMvc.perform(MockMvcRequestBuilders.post("/items/" + responseDTO.getItemTypeId() + "/cart")
+
+        result = mockMvc.perform(MockMvcRequestBuilders.post("/items/" + responseDTO.getItemTypeId() + "/stock")
                         .contentType(MediaType.APPLICATION_JSON)
-                        .content(body))
+                        .content("10"))
                 .andExpect(status().isOk())
                 .andReturn();
         response = result.getResponse().getContentAsString();
-        responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
-        assertThat(responseDTO, hasProperty("name", is(itemTypeDTO.getName())));
+        assertTrue(Boolean.parseBoolean(response));
     }
 
     @Test
@@ -161,8 +165,12 @@ public class ItemServiceIntegrationTest {
                         .content(body))
                 .andExpect(status().isBadRequest())
                 .andReturn();
+
         String response = result.getResponse().getContentAsString();
-        assertThat(response, is("Price must be greater than 0"));
+
+        VirtualStoreError err = objectMapper.readValue(response, VirtualStoreError.class);
+        assertThat(err, hasProperty("message", is("The price must be greater than 0")));
+        assertThat(err, hasProperty("code", is(VirtualStoreErrorCode.CODE_01)));
     }
 
     @Test
@@ -173,10 +181,11 @@ public class ItemServiceIntegrationTest {
         MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(body))
-                .andExpect(status().isCreated())
+                .andExpect(status().isOk())
                 .andReturn();
         String response = result.getResponse().getContentAsString();
         ItemTypeDTO responseDTO = objectMapper.readValue(response, ItemTypeDTO.class);
+
         MvcResult getResult = mockMvc.perform(MockMvcRequestBuilders.get("/items/" + responseDTO.getItemTypeId())
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())
@@ -185,6 +194,39 @@ public class ItemServiceIntegrationTest {
         ItemTypeDTO getResponseDTO = objectMapper.readValue(getResponse, ItemTypeDTO.class);
         assertThat(getResponseDTO, hasProperty("name", is(itemTypeDTO.getName())));
     }
+
+    @Test
+    @SneakyThrows
+    public void getItemsSuccessfully() {
+        ItemTypeDTO itemTypeDTO = createItemDTO();
+        String body = objectMapper.writeValueAsString(itemTypeDTO);
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        itemTypeDTO = createItemDTO();
+        itemTypeDTO.setName("Item 2");
+        itemTypeDTO.setPrice(2.3);
+        itemTypeDTO.setDescription("Item 2 description");
+        body = objectMapper.writeValueAsString(itemTypeDTO);
+        result = mockMvc.perform(MockMvcRequestBuilders.post("/items")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        MvcResult getResult = mockMvc.perform(MockMvcRequestBuilders.get("/items")
+                        .contentType(MediaType.APPLICATION_JSON))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String getResponse = getResult.getResponse().getContentAsString();
+        List<String> getResponseDTO = objectMapper.readValue(getResponse, List.class);
+        assertThat(getResponseDTO, hasSize(3));
+    }
+
 
     @SneakyThrows
     private ItemTypeDTO createItemDTO() {

@@ -25,18 +25,17 @@ import org.springframework.web.context.WebApplicationContext;
 
 import java.io.InputStreamReader;
 import java.io.Reader;
+import java.util.List;
 
 import static java.nio.charset.StandardCharsets.UTF_8;
 import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.hasProperty;
-import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration
 @SpringBootTest(
-        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT,
-        properties = { "spring.datasource.url=jdbc:postgresql://localhost:49153/test" }
+        webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT
 )
 @ActiveProfiles("test")
 public class UserServiceIntegrationTest {
@@ -52,7 +51,7 @@ public class UserServiceIntegrationTest {
 
 
     @BeforeEach
-    private void init() {
+    public void init() {
         objectMapper = new ObjectMapper();
         this.mockMvc = MockMvcBuilders.webAppContextSetup(wac).build();
     }
@@ -67,7 +66,7 @@ public class UserServiceIntegrationTest {
                         .content(body)).andExpect(status().isOk())
                 .andReturn();
 
-        UserCreateDTO userResult = objectMapper.readValue(result.getResponse().getContentAsString(), UserCreateDTO.class);
+        UserDTO userResult = objectMapper.readValue(result.getResponse().getContentAsString(), UserDTO.class);
         assertThat(userResult, hasProperty("email", is(baseUser.getEmail())));
 
     }
@@ -79,10 +78,28 @@ public class UserServiceIntegrationTest {
                 .andExpect(status().isOk())
                 .andReturn();
 
-        UserCreateDTO userResult = objectMapper.readValue(result.getResponse().getContentAsString(), UserCreateDTO.class);
+        UserDTO userResult = objectMapper.readValue(result.getResponse().getContentAsString(), UserDTO.class);
 
-        assertThat(userResult, hasProperty("password", is("askhda123")));
+        assertThat(userResult, hasProperty("email", is("testing1@email.com")));
+    }
 
+    @Test
+    @SneakyThrows
+    public void getUsersSuccessfully() {
+        UserCreateDTO baseUser = baseUser();
+        String body = objectMapper.writeValueAsString(baseUser);
+        mockMvc.perform(MockMvcRequestBuilders.post("/users")
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .content(body)).andExpect(status().isOk())
+                .andReturn();
+
+        MvcResult result = mockMvc.perform(MockMvcRequestBuilders.get("/users"))
+                .andExpect(status().isOk())
+                .andReturn();
+
+        String getResponse = result.getResponse().getContentAsString();
+        List<String> getResponseDTO = objectMapper.readValue(getResponse, List.class);
+        assertThat(getResponseDTO, hasSize(2));
     }
 
     @SneakyThrows

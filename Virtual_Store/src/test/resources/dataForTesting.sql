@@ -59,7 +59,18 @@ VALUES ('d5af90ef-7ef5-4e28-a5b1-55ad69e121a8', '188cfe58-7503-479d-8b76-dbd4f9b
 INSERT INTO "user"(user_id, email, phone_number, address, password, role_id)
 VALUES ('44991aa0-6568-401c-b032-6b436a7812dd', 'testing1@email.com', '+3154512073', 'askdh aksjhdka', 'askhda123',
         '2e72ed53-f5e2-4f7a-bd86-8aadcadeb4eb');
+
 INSERT INTO item_type(item_type_id, name, description, price, image)
 VALUES ('ccc7ff73-1989-413a-ab52-9bec7a049e98', 'table', 'xdadaqewqdasdasdqweasdasds', 9.99, '');
+
 INSERT INTO item(item_id, available, order_item_id, item_type_id)
 VALUES ('ccc7ff73-1989-413a-ab52-9bec7a049e55', true, null, 'ccc7ff73-1989-413a-ab52-9bec7a049e98');
+
+INSERT INTO "order"(order_id, user_id, total, status)
+VALUES ('ccc7ff73-1989-413a-ab52-9bec7a049e99', '44991aa0-6568-401c-b032-6b436a7812dd', 9.99, 'CREATED');
+
+INSERT INTO order_item(order_item_id, quantity, order_id)
+VALUES ('ccc7ff73-1989-413a-ab52-9bec7a049e66', 1, 'ccc7ff73-1989-413a-ab52-9bec7a049e99');
+
+INSERT INTO item(item_id, available, order_item_id, item_type_id)
+VALUES ('ccc7ff73-1989-413a-ab52-9bec7a049e77', true, 'ccc7ff73-1989-413a-ab52-9bec7a049e66', 'ccc7ff73-1989-413a-ab52-9bec7a049e98');
