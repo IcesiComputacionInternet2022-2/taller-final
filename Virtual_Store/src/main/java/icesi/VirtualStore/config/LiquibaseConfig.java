@@ -19,7 +19,7 @@ public class LiquibaseConfig {
         liquibase.setDataSource(dataSource);
         return liquibase;
     }
-
+    
 //    private ResourceDatabasePopulator resourceDatabasePopulator() {
 //
 //        ResourceDatabasePopulator resourceDatabasePopulator = new ResourceDatabasePopulator();
@@ -27,7 +27,7 @@ public class LiquibaseConfig {
 //
 //        return resourceDatabasePopulator;
 //    }
-
+//
 //    @Bean
 //    public DataSourceInitializer dataSourceInitializer(DataSource dataSource) {
 //        DataSourceInitializer dataSourceInitializer = new DataSourceInitializer();
