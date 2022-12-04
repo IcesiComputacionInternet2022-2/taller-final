@@ -1,7 +1,9 @@
 package icesi.VirtualStore.Integration;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import icesi.VirtualStore.constant.VirtualStoreErrorCode;
 import icesi.VirtualStore.dto.ItemTypeDTO;
+import icesi.VirtualStore.error.exception.VirtualStoreError;
 import lombok.SneakyThrows;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -77,8 +79,12 @@ public class ItemServiceIntegrationTest {
                         .content(body))
                 .andExpect(status().isBadRequest())
                 .andReturn();
+
         String response = result.getResponse().getContentAsString();
-        assertThat(response, is("Name must be between 2 and 50 characters"));
+
+        VirtualStoreError err = objectMapper.readValue(response, VirtualStoreError.class);
+        assertThat(err, hasProperty("message", is("The name must have between 3 and 50 characters")));
+        assertThat(err, hasProperty("code", is(VirtualStoreErrorCode.CODE_U_03)));
     }
 
     @Test
